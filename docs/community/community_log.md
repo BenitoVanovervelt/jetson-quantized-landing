@@ -23,7 +23,7 @@ Vul een rij in zodra iets echt gebeurd is: een gelezen bron, een post, een react
 | | Medium | Artikel "FP32 vs FP16 vs INT8 on a Jetson Orin Nano" | | | |
 | | NVIDIA Developer Forums | Antwoord: geheugenfout bij het bouwen van een engine | | | |
 | | NVIDIA Developer Forums | Antwoord: RT-DETR naar INT8 (mengvorm) | | | |
-| | Colosseum Discussions | simSetVehiclePose reset de snelheid niet | | | |
+| | Cosys-AirSim Discussions | simSetVehiclePose reset de snelheid niet | | | |
 
 ## Cursussen en platformen
 
