@@ -1,0 +1,149 @@
+=== yolo26s_fp16 ===
+Connected!
+Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+
+50 pogingen, log: C:\dev\landing-project\results\live\live_yolo26s_fp16_20261028_162200_*.csv
+# 0 theta=   0 phi=304.0 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (380 frames, 22 s, startafwijking 6 cm)
+# 1 theta=   0 phi=272.9 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (382 frames, 22 s, startafwijking 1 cm)
+# 2 theta=   0 phi=151.4 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (380 frames, 24 s, startafwijking 3 cm)
+# 3 theta=   0 phi= 93.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (379 frames, 22 s, startafwijking 0 cm)
+# 4 theta=   0 phi=184.1 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (386 frames, 24 s, startafwijking 3 cm)
+# 5 theta=   0 phi=145.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (383 frames, 22 s, startafwijking 1 cm)
+# 6 theta=   0 phi=282.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (383 frames, 22 s, startafwijking 1 cm)
+# 7 theta=   0 phi=109.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (393 frames, 24 s, startafwijking 3 cm)
+# 8 theta=   0 phi=171.6 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (392 frames, 24 s, startafwijking 3 cm)
+# 9 theta=   0 phi=210.0 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (393 frames, 22 s, startafwijking 1 cm)
+#10 theta=  15 phi=326.9 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (535 frames, 29 s, startafwijking 1 cm)
+#11 theta=  15 phi=181.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (545 frames, 29 s, startafwijking 0 cm)
+#12 theta=  15 phi=101.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (543 frames, 31 s, startafwijking 3 cm)
+#13 theta=  15 phi=272.1 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (530 frames, 31 s, startafwijking 3 cm)
+#14 theta=  15 phi=222.6 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (545 frames, 31 s, startafwijking 3 cm)
+#15 theta=  15 phi= 90.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (542 frames, 31 s, startafwijking 3 cm)
+#16 theta=  15 phi=327.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (545 frames, 29 s, startafwijking 1 cm)
+#17 theta=  15 phi=353.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (540 frames, 29 s, startafwijking 0 cm)
+#18 theta=  15 phi=291.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (549 frames, 29 s, startafwijking 0 cm)
+#19 theta=  15 phi=324.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (543 frames, 29 s, startafwijking 0 cm)
+#20 theta=  30 phi=111.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (611 frames, 34 s, startafwijking 3 cm)
+#21 theta=  30 phi=262.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (612 frames, 34 s, startafwijking 3 cm)
+#22 theta=  30 phi=323.6 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (617 frames, 32 s, startafwijking 0 cm)
+#23 theta=  30 phi=246.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (613 frames, 34 s, startafwijking 3 cm)
+#24 theta=  30 phi=170.0 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (598 frames, 32 s, startafwijking 0 cm)
+#25 theta=  30 phi= 36.3 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (594 frames, 32 s, startafwijking 0 cm)
+#26 theta=  30 phi=156.3 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (593 frames, 34 s, startafwijking 3 cm)
+#27 theta=  30 phi=219.9 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (591 frames, 32 s, startafwijking 1 cm)
+#28 theta=  30 phi=328.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (596 frames, 34 s, startafwijking 3 cm)
+#29 theta=  30 phi=348.0 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (589 frames, 34 s, startafwijking 3 cm)
+#30 theta=  45 phi=171.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (618 frames, 33 s, startafwijking 1 cm)
+#31 theta=  45 phi=311.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (610 frames, 35 s, startafwijking 3 cm)
+#32 theta=  45 phi= 93.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (623 frames, 33 s, startafwijking 0 cm)
+#33 theta=  45 phi=289.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (619 frames, 35 s, startafwijking 3 cm)
+#34 theta=  45 phi=197.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (613 frames, 33 s, startafwijking 1 cm)
+#35 theta=  45 phi=  5.1 platform=ja  -> onterecht_afgebroken geen_contact fout=- v=- kant=- contact=- (1500 frames, 90 s, startafwijking 0 cm)
+#36 theta=  45 phi=259.1 platform=ja  -> onterecht_afgebroken  fout=- v=- kant=- contact=- (100 frames, 5 s, startafwijking 36 cm)
+#37 theta=  45 phi=143.6 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (628 frames, 33 s, startafwijking 0 cm)
+#38 theta=  45 phi=296.9 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (631 frames, 35 s, startafwijking 3 cm)
+#39 theta=  45 phi=240.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (626 frames, 33 s, startafwijking 0 cm)
+#40 theta=   0 phi=220.3 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 5 s, startafwijking 0 cm)
+#41 theta=  30 phi= 87.8 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 5 s, startafwijking 0 cm)
+#42 theta=  30 phi=253.3 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 5 s, startafwijking 0 cm)
+#43 theta=   0 phi= 68.8 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 5 s, startafwijking 0 cm)
+#44 theta=  15 phi= 85.9 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 5 s, startafwijking 0 cm)
+#45 theta=  15 phi=289.1 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 5 s, startafwijking 0 cm)
+#46 theta=  45 phi= 32.8 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 5 s, startafwijking 0 cm)
+#47 theta=  30 phi=315.0 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 5 s, startafwijking 0 cm)
+#48 theta=  45 phi= 39.3 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 5 s, startafwijking 0 cm)
+#49 theta=  30 phi=254.4 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 5 s, startafwijking 0 cm)
+=== yolo26s_int8 ===
+=== yolo26s_fp32 ===
+Traceback (most recent call last):
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python39\lib\runpy.py", line 197, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python39\lib\runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "C:\dev\landing-project\landing\live_test.py", line 240, in <module>
+    f"fout={row.get('position_error_m', '-')} v={row.get('landing_speed_ms', '-')} "
+  File "C:\dev\landing-project\landing\live_test.py", line 226, in main
+    print(f"{len(attempts)} pogingen, log: {out_dir / stem}_*.csv")
+  File "C:\dev\landing-project\landing\live_test.py", line 141, in run_attempt
+    image = get_bottom_image(client)
+  File "C:\dev\landing-project\landing\inference_client.py", line 34, in infer
+    reply = recv_json(self.sock)
+  File "C:\dev\landing-project\jetson\protocol.py", line 59, in recv_json
+    return json.loads(recv_blob(sock).decode("utf-8"))
+  File "C:\dev\landing-project\jetson\protocol.py", line 50, in recv_blob
+    (size,) = _LENGTH.unpack(_recv_exact(sock, _LENGTH.size))
+  File "C:\dev\landing-project\jetson\protocol.py", line 40, in _recv_exact
+    raise ConnectionError("Verbinding gesloten door de andere kant")
+ConnectionError: Verbinding gesloten door de andere kant
+Connected!
+Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+
+50 pogingen, log: C:\dev\landing-project\results\live\live_yolo26s_fp32_20261028_164504_*.csv
+=== rtdetr-l_int8 ===
+Traceback (most recent call last):
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python39\lib\runpy.py", line 197, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python39\lib\runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "C:\dev\landing-project\landing\live_test.py", line 249, in <module>
+    main()
+  File "C:\dev\landing-project\landing\live_test.py", line 235, in main
+    row, drift, contact = run_attempt(client, inference, frame_log, attempt_id,
+  File "C:\dev\landing-project\landing\live_test.py", line 132, in run_attempt
+    raise RuntimeError(f"Drone niet op de startpositie na 3 pogingen (afwijking {drift:.2f} m)")
+RuntimeError: Drone niet op de startpositie na 3 pogingen (afwijking 0.92 m)
+Connected!
+Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+
+50 pogingen, log: C:\dev\landing-project\results\live\live_rtdetr-l_int8_20261028_164549_*.csv
+=== rtdetr-l_fp16 ===
+Traceback (most recent call last):
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python39\lib\runpy.py", line 197, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python39\lib\runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "C:\dev\landing-project\landing\live_test.py", line 249, in <module>
+    main()
+  File "C:\dev\landing-project\landing\live_test.py", line 235, in main
+    row, drift, contact = run_attempt(client, inference, frame_log, attempt_id,
+  File "C:\dev\landing-project\landing\live_test.py", line 143, in run_attempt
+    reply = inference.infer(frame_id, image)
+  File "C:\dev\landing-project\landing\inference_client.py", line 34, in infer
+    reply = recv_json(self.sock)
+  File "C:\dev\landing-project\jetson\protocol.py", line 59, in recv_json
+    return json.loads(recv_blob(sock).decode("utf-8"))
+  File "C:\dev\landing-project\jetson\protocol.py", line 50, in recv_blob
+    (size,) = _LENGTH.unpack(_recv_exact(sock, _LENGTH.size))
+  File "C:\dev\landing-project\jetson\protocol.py", line 38, in _recv_exact
+    chunk = sock.recv(size - len(buffer))
+socket.timeout: timed out
+Connected!
+Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+
+50 pogingen, log: C:\dev\landing-project\results\live\live_rtdetr-l_fp16_20261028_164610_*.csv
+=== rtdetr-l_fp32 ===
+Traceback (most recent call last):
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python39\lib\runpy.py", line 197, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python39\lib\runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "C:\dev\landing-project\landing\live_test.py", line 249, in <module>
+    main()
+  File "C:\dev\landing-project\landing\live_test.py", line 235, in main
+    row, drift, contact = run_attempt(client, inference, frame_log, attempt_id,
+  File "C:\dev\landing-project\landing\live_test.py", line 143, in run_attempt
+    reply = inference.infer(frame_id, image)
+  File "C:\dev\landing-project\landing\inference_client.py", line 34, in infer
+    reply = recv_json(self.sock)
+  File "C:\dev\landing-project\jetson\protocol.py", line 59, in recv_json
+    return json.loads(recv_blob(sock).decode("utf-8"))
+  File "C:\dev\landing-project\jetson\protocol.py", line 50, in recv_blob
+    (size,) = _LENGTH.unpack(_recv_exact(sock, _LENGTH.size))
+  File "C:\dev\landing-project\jetson\protocol.py", line 38, in _recv_exact
+    chunk = sock.recv(size - len(buffer))
+socket.timeout: timed out
+Connected!
+Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+
+50 pogingen, log: C:\dev\landing-project\results\live\live_rtdetr-l_fp32_20261028_164635_*.csv
+Klaar

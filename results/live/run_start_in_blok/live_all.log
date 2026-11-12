@@ -1,0 +1,238 @@
+=== yolo26s_fp16 ===
+Traceback (most recent call last):
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python39\lib\runpy.py", line 197, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python39\lib\runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "C:\dev\landing-project\landing\live_test.py", line 249, in <module>
+    main()
+  File "C:\dev\landing-project\landing\live_test.py", line 235, in main
+    row, drift, contact = run_attempt(client, inference, frame_log, attempt_id,
+  File "C:\dev\landing-project\landing\live_test.py", line 143, in run_attempt
+    reply = inference.infer(frame_id, image)
+  File "C:\dev\landing-project\landing\inference_client.py", line 34, in infer
+    reply = recv_json(self.sock)
+  File "C:\dev\landing-project\jetson\protocol.py", line 59, in recv_json
+    return json.loads(recv_blob(sock).decode("utf-8"))
+  File "C:\dev\landing-project\jetson\protocol.py", line 50, in recv_blob
+    (size,) = _LENGTH.unpack(_recv_exact(sock, _LENGTH.size))
+  File "C:\dev\landing-project\jetson\protocol.py", line 40, in _recv_exact
+    raise ConnectionError("Verbinding gesloten door de andere kant")
+ConnectionError: Verbinding gesloten door de andere kant
+Connected!
+Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+
+50 pogingen, log: C:\dev\landing-project\results\live\live_yolo26s_fp16_20261028_164548_*.csv
+=== yolo26s_int8 ===
+Traceback (most recent call last):
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python39\lib\runpy.py", line 197, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python39\lib\runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "C:\dev\landing-project\landing\live_test.py", line 249, in <module>
+    main()
+  File "C:\dev\landing-project\landing\live_test.py", line 235, in main
+    row, drift, contact = run_attempt(client, inference, frame_log, attempt_id,
+  File "C:\dev\landing-project\landing\live_test.py", line 143, in run_attempt
+    reply = inference.infer(frame_id, image)
+  File "C:\dev\landing-project\landing\inference_client.py", line 34, in infer
+    reply = recv_json(self.sock)
+  File "C:\dev\landing-project\jetson\protocol.py", line 59, in recv_json
+    return json.loads(recv_blob(sock).decode("utf-8"))
+  File "C:\dev\landing-project\jetson\protocol.py", line 50, in recv_blob
+    (size,) = _LENGTH.unpack(_recv_exact(sock, _LENGTH.size))
+  File "C:\dev\landing-project\jetson\protocol.py", line 40, in _recv_exact
+    raise ConnectionError("Verbinding gesloten door de andere kant")
+ConnectionError: Verbinding gesloten door de andere kant
+Connected!
+Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+
+50 pogingen, log: C:\dev\landing-project\results\live\live_yolo26s_int8_20261028_164610_*.csv
+=== yolo26s_fp32 ===
+Traceback (most recent call last):
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python39\lib\runpy.py", line 197, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python39\lib\runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "C:\dev\landing-project\landing\live_test.py", line 249, in <module>
+    main()
+  File "C:\dev\landing-project\landing\live_test.py", line 235, in main
+    row, drift, contact = run_attempt(client, inference, frame_log, attempt_id,
+  File "C:\dev\landing-project\landing\live_test.py", line 143, in run_attempt
+    reply = inference.infer(frame_id, image)
+  File "C:\dev\landing-project\landing\inference_client.py", line 34, in infer
+    reply = recv_json(self.sock)
+  File "C:\dev\landing-project\jetson\protocol.py", line 59, in recv_json
+    return json.loads(recv_blob(sock).decode("utf-8"))
+  File "C:\dev\landing-project\jetson\protocol.py", line 50, in recv_blob
+    (size,) = _LENGTH.unpack(_recv_exact(sock, _LENGTH.size))
+  File "C:\dev\landing-project\jetson\protocol.py", line 40, in _recv_exact
+    raise ConnectionError("Verbinding gesloten door de andere kant")
+ConnectionError: Verbinding gesloten door de andere kant
+Connected!
+Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+
+50 pogingen, log: C:\dev\landing-project\results\live\live_yolo26s_fp32_20261028_164634_*.csv
+=== rtdetr-l_int8 ===
+Connected!
+Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+
+50 pogingen, log: C:\dev\landing-project\results\live\live_rtdetr-l_int8_20261028_164658_*.csv
+# 0 theta=   0 phi=304.0 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (272 frames, 22 s, startafwijking 7 cm)
+# 1 theta=   0 phi=272.9 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (272 frames, 22 s, startafwijking 1 cm)
+# 2 theta=   0 phi=151.4 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (275 frames, 24 s, startafwijking 3 cm)
+# 3 theta=   0 phi= 93.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (275 frames, 22 s, startafwijking 1 cm)
+# 4 theta=   0 phi=184.1 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (275 frames, 24 s, startafwijking 4 cm)
+# 5 theta=   0 phi=145.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (275 frames, 22 s, startafwijking 1 cm)
+# 6 theta=   0 phi=282.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (270 frames, 24 s, startafwijking 4 cm)
+# 7 theta=   0 phi=109.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (273 frames, 22 s, startafwijking 1 cm)
+# 8 theta=   0 phi=171.6 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (270 frames, 22 s, startafwijking 1 cm)
+# 9 theta=   0 phi=210.0 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (273 frames, 22 s, startafwijking 1 cm)
+#10 theta=  15 phi=326.9 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (383 frames, 31 s, startafwijking 4 cm)
+#11 theta=  15 phi=181.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (380 frames, 29 s, startafwijking 1 cm)
+#12 theta=  15 phi=101.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (378 frames, 29 s, startafwijking 1 cm)
+#13 theta=  15 phi=272.1 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (384 frames, 29 s, startafwijking 1 cm)
+#14 theta=  15 phi=222.6 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (379 frames, 29 s, startafwijking 1 cm)
+#15 theta=  15 phi= 90.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (383 frames, 29 s, startafwijking 1 cm)
+#16 theta=  15 phi=327.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (380 frames, 31 s, startafwijking 3 cm)
+#17 theta=  15 phi=353.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (379 frames, 29 s, startafwijking 1 cm)
+#18 theta=  15 phi=291.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (378 frames, 29 s, startafwijking 1 cm)
+#19 theta=  15 phi=324.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (378 frames, 31 s, startafwijking 4 cm)
+#20 theta=  30 phi=111.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (423 frames, 34 s, startafwijking 3 cm)
+#21 theta=  30 phi=262.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (431 frames, 32 s, startafwijking 1 cm)
+#22 theta=  30 phi=323.6 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (432 frames, 34 s, startafwijking 5 cm)
+#23 theta=  30 phi=246.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (424 frames, 32 s, startafwijking 1 cm)
+#24 theta=  30 phi=170.0 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (429 frames, 34 s, startafwijking 4 cm)
+#25 theta=  30 phi= 36.3 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (421 frames, 32 s, startafwijking 1 cm)
+#26 theta=  30 phi=156.3 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (428 frames, 34 s, startafwijking 4 cm)
+#27 theta=  30 phi=219.9 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (428 frames, 32 s, startafwijking 1 cm)
+#28 theta=  30 phi=328.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (430 frames, 32 s, startafwijking 1 cm)
+#29 theta=  30 phi=348.0 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (427 frames, 32 s, startafwijking 1 cm)
+#30 theta=  45 phi=171.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (446 frames, 33 s, startafwijking 1 cm)
+#31 theta=  45 phi=311.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (443 frames, 35 s, startafwijking 4 cm)
+#32 theta=  45 phi= 93.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (445 frames, 35 s, startafwijking 4 cm)
+#33 theta=  45 phi=289.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (429 frames, 35 s, startafwijking 5 cm)
+#34 theta=  45 phi=197.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (442 frames, 33 s, startafwijking 1 cm)
+#35 theta=  45 phi=  5.1 platform=ja  -> goede_landing         fout=0.000 v=0.000 kant=0.00 contact=TemplateCube_Rounded_150 (5 frames, 1 s, startafwijking 0 cm)
+#36 theta=  45 phi=259.1 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (444 frames, 33 s, startafwijking 2 cm)
+#37 theta=  45 phi=143.6 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (445 frames, 35 s, startafwijking 4 cm)
+#38 theta=  45 phi=296.9 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (440 frames, 33 s, startafwijking 1 cm)
+#39 theta=  45 phi=240.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (424 frames, 35 s, startafwijking 3 cm)
+#40 theta=   0 phi=220.3 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 8 s, startafwijking 0 cm)
+#41 theta=  30 phi= 87.8 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 8 s, startafwijking 0 cm)
+#42 theta=  30 phi=253.3 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 8 s, startafwijking 0 cm)
+#43 theta=   0 phi= 68.8 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 8 s, startafwijking 0 cm)
+#44 theta=  15 phi= 85.9 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 8 s, startafwijking 0 cm)
+#45 theta=  15 phi=289.1 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 8 s, startafwijking 0 cm)
+#46 theta=  45 phi= 32.8 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 7 s, startafwijking 0 cm)
+#47 theta=  30 phi=315.0 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 8 s, startafwijking 0 cm)
+#48 theta=  45 phi= 39.3 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 8 s, startafwijking 0 cm)
+#49 theta=  30 phi=254.4 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 8 s, startafwijking 0 cm)
+=== rtdetr-l_fp16 ===
+Traceback (most recent call last):
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python39\lib\runpy.py", line 197, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python39\lib\runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "C:\dev\landing-project\landing\live_test.py", line 249, in <module>
+    main()
+  File "C:\dev\landing-project\landing\live_test.py", line 235, in main
+    row, drift, contact = run_attempt(client, inference, frame_log, attempt_id,
+  File "C:\dev\landing-project\landing\live_test.py", line 173, in run_attempt
+    raise RuntimeError(f"Drone staat {FROZEN_FRAMES} frames stil tijdens het dalen: simulatie vastgelopen?")
+RuntimeError: Drone staat 40 frames stil tijdens het dalen: simulatie vastgelopen?
+Connected!
+Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+
+50 pogingen, log: C:\dev\landing-project\results\live\live_rtdetr-l_fp16_20261028_170757_*.csv
+# 0 theta=   0 phi=304.0 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (229 frames, 22 s, startafwijking 7 cm)
+# 1 theta=   0 phi=272.9 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (237 frames, 22 s, startafwijking 1 cm)
+# 2 theta=   0 phi=151.4 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (237 frames, 24 s, startafwijking 4 cm)
+# 3 theta=   0 phi= 93.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (238 frames, 22 s, startafwijking 1 cm)
+# 4 theta=   0 phi=184.1 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (238 frames, 24 s, startafwijking 4 cm)
+# 5 theta=   0 phi=145.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (237 frames, 24 s, startafwijking 4 cm)
+# 6 theta=   0 phi=282.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (237 frames, 22 s, startafwijking 1 cm)
+# 7 theta=   0 phi=109.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (237 frames, 22 s, startafwijking 1 cm)
+# 8 theta=   0 phi=171.6 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (238 frames, 22 s, startafwijking 1 cm)
+# 9 theta=   0 phi=210.0 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (237 frames, 24 s, startafwijking 4 cm)
+#10 theta=  15 phi=326.9 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (331 frames, 29 s, startafwijking 1 cm)
+#11 theta=  15 phi=181.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (328 frames, 29 s, startafwijking 1 cm)
+#12 theta=  15 phi=101.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (330 frames, 29 s, startafwijking 1 cm)
+#13 theta=  15 phi=272.1 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (329 frames, 29 s, startafwijking 1 cm)
+#14 theta=  15 phi=222.6 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (331 frames, 29 s, startafwijking 1 cm)
+#15 theta=  15 phi= 90.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (332 frames, 31 s, startafwijking 4 cm)
+#16 theta=  15 phi=327.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (329 frames, 31 s, startafwijking 3 cm)
+#17 theta=  15 phi=353.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (331 frames, 31 s, startafwijking 4 cm)
+#18 theta=  15 phi=291.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (325 frames, 31 s, startafwijking 4 cm)
+#19 theta=  15 phi=324.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (330 frames, 29 s, startafwijking 1 cm)
+#20 theta=  30 phi=111.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (365 frames, 32 s, startafwijking 0 cm)
+#21 theta=  30 phi=262.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (364 frames, 32 s, startafwijking 1 cm)
+#22 theta=  30 phi=323.6 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (364 frames, 32 s, startafwijking 1 cm)
+#23 theta=  30 phi=246.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (369 frames, 32 s, startafwijking 1 cm)
+#24 theta=  30 phi=170.0 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (371 frames, 34 s, startafwijking 4 cm)
+#25 theta=  30 phi= 36.3 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (367 frames, 34 s, startafwijking 3 cm)
+#26 theta=  30 phi=156.3 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (371 frames, 32 s, startafwijking 1 cm)
+#27 theta=  30 phi=219.9 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (369 frames, 34 s, startafwijking 4 cm)
+#28 theta=  30 phi=328.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (369 frames, 32 s, startafwijking 0 cm)
+#29 theta=  30 phi=348.0 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (369 frames, 32 s, startafwijking 1 cm)
+#30 theta=  45 phi=171.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (380 frames, 35 s, startafwijking 4 cm)
+#31 theta=  45 phi=311.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (379 frames, 35 s, startafwijking 4 cm)
+#32 theta=  45 phi= 93.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (382 frames, 35 s, startafwijking 3 cm)
+#33 theta=  45 phi=289.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (380 frames, 35 s, startafwijking 3 cm)
+#34 theta=  45 phi=197.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (380 frames, 35 s, startafwijking 4 cm)
+=== rtdetr-l_fp32 ===
+Connected!
+Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+
+50 pogingen, log: C:\dev\landing-project\results\live\live_rtdetr-l_fp32_20261028_172532_*.csv
+# 0 theta=   0 phi=304.0 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (164 frames, 23 s, startafwijking 2 cm)
+# 1 theta=   0 phi=272.9 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (167 frames, 25 s, startafwijking 4 cm)
+# 2 theta=   0 phi=151.4 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (165 frames, 25 s, startafwijking 3 cm)
+# 3 theta=   0 phi= 93.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (167 frames, 22 s, startafwijking 1 cm)
+# 4 theta=   0 phi=184.1 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (169 frames, 23 s, startafwijking 1 cm)
+# 5 theta=   0 phi=145.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (162 frames, 23 s, startafwijking 1 cm)
+# 6 theta=   0 phi=282.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (170 frames, 23 s, startafwijking 1 cm)
+# 7 theta=   0 phi=109.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (169 frames, 22 s, startafwijking 1 cm)
+# 8 theta=   0 phi=171.6 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (165 frames, 23 s, startafwijking 1 cm)
+# 9 theta=   0 phi=210.0 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (170 frames, 25 s, startafwijking 4 cm)
+#10 theta=  15 phi=326.9 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (234 frames, 29 s, startafwijking 1 cm)
+#11 theta=  15 phi=181.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (239 frames, 31 s, startafwijking 4 cm)
+#12 theta=  15 phi=101.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (238 frames, 32 s, startafwijking 4 cm)
+#13 theta=  15 phi=272.1 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (239 frames, 32 s, startafwijking 4 cm)
+#14 theta=  15 phi=222.6 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (237 frames, 29 s, startafwijking 1 cm)
+#15 theta=  15 phi= 90.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (236 frames, 29 s, startafwijking 1 cm)
+#16 theta=  15 phi=327.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (238 frames, 29 s, startafwijking 1 cm)
+#17 theta=  15 phi=353.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (237 frames, 32 s, startafwijking 4 cm)
+#18 theta=  15 phi=291.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (238 frames, 32 s, startafwijking 4 cm)
+#19 theta=  15 phi=324.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (238 frames, 29 s, startafwijking 1 cm)
+#20 theta=  30 phi=111.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (265 frames, 32 s, startafwijking 1 cm)
+#21 theta=  30 phi=262.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (264 frames, 32 s, startafwijking 1 cm)
+#22 theta=  30 phi=323.6 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (265 frames, 34 s, startafwijking 3 cm)
+#23 theta=  30 phi=246.2 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (264 frames, 34 s, startafwijking 3 cm)
+#24 theta=  30 phi=170.0 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (267 frames, 34 s, startafwijking 4 cm)
+#25 theta=  30 phi= 36.3 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (263 frames, 34 s, startafwijking 4 cm)
+#26 theta=  30 phi=156.3 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (267 frames, 32 s, startafwijking 0 cm)
+#27 theta=  30 phi=219.9 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (265 frames, 34 s, startafwijking 3 cm)
+#28 theta=  30 phi=328.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (264 frames, 32 s, startafwijking 1 cm)
+#29 theta=  30 phi=348.0 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (265 frames, 32 s, startafwijking 1 cm)
+#30 theta=  45 phi=171.7 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (274 frames, 33 s, startafwijking 1 cm)
+#31 theta=  45 phi=311.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (275 frames, 35 s, startafwijking 4 cm)
+#32 theta=  45 phi= 93.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (277 frames, 35 s, startafwijking 4 cm)
+#33 theta=  45 phi=289.8 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (273 frames, 33 s, startafwijking 1 cm)
+#34 theta=  45 phi=197.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (277 frames, 35 s, startafwijking 4 cm)
+#35 theta=  45 phi=  5.1 platform=ja  -> goede_landing         fout=0.000 v=0.000 kant=0.00 contact=TemplateCube_Rounded_150 (5 frames, 2 s, startafwijking 0 cm)
+#36 theta=  45 phi=259.1 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (274 frames, 33 s, startafwijking 7 cm)
+#37 theta=  45 phi=143.6 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (275 frames, 35 s, startafwijking 4 cm)
+#38 theta=  45 phi=296.9 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (274 frames, 33 s, startafwijking 1 cm)
+#39 theta=  45 phi=240.5 platform=ja  -> goede_landing         fout=0.000 v=0.297 kant=0.00 contact=LandingPad (275 frames, 33 s, startafwijking 1 cm)
+#40 theta=   0 phi=220.3 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 11 s, startafwijking 1 cm)
+#41 theta=  30 phi= 87.8 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 11 s, startafwijking 0 cm)
+#42 theta=  30 phi=253.3 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 11 s, startafwijking 0 cm)
+#43 theta=   0 phi= 68.8 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 11 s, startafwijking 0 cm)
+#44 theta=  15 phi= 85.9 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 11 s, startafwijking 0 cm)
+#45 theta=  15 phi=289.1 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 11 s, startafwijking 0 cm)
+#46 theta=  45 phi= 32.8 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 11 s, startafwijking 0 cm)
+#47 theta=  30 phi=315.0 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 11 s, startafwijking 0 cm)
+#48 theta=  45 phi= 39.3 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 11 s, startafwijking 0 cm)
+#49 theta=  30 phi=254.4 platform=nee -> terecht_afgebroken    fout=- v=- kant=- contact=- (100 frames, 11 s, startafwijking 0 cm)
+Klaar

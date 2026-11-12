@@ -1,0 +1,42 @@
+# Python-omgevingen (worden lokaal aangemaakt, niet delen)
+airsim-env/
+train-env/
+__pycache__/
+*.pyc
+
+# Gegenereerde data en trainingsruns (te groot voor Git, reproduceerbaar)
+data/
+runs/
+
+# Kopie van de Blocks-omgeving (1,9 GB, Unreal-binaire bestanden)
+unreal/
+
+# Modelbestanden (groot; engines zijn gebonden aan hardware en TensorRT-versie)
+*.engine
+*.onnx
+*.pt
+
+# Editor en OS
+.vscode/
+Thumbs.db
+
+# Automatisch gedownload door Ultralytics (voorbeeldset coco8 en COCO-gewichten)
+datasets/
+weights/
+# Engines op de Jetson
+engines/
+# Lock-bestand van een lopende live run
+results/live/live_all.lock
+
+# Lokale gegevens van de Jetson (gebruikersnaam), zie docs/INSTALL.md 2.1
+jetson.env
+
+# Interne planning (checklist, mails, concepten van posts): niet publiek
+docs/community/intern/
+
+# Demovideo (200 MB, boven de limiet van 100 MB per bestand op GitHub): apart delen
+presentation/video/*.mp4
+
+# Indienpakket school (gegenereerd) en persoonlijke leidraad voor de verdediging
+submission/
+docs/Leidraad_verdediging.docx

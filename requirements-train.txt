@@ -1,0 +1,21 @@
+# Pakketten voor train-env (Python 3.12, NVIDIA-GPU): fine-tuning, ONNX-export en analyse.
+# Exacte versies uitgelezen uit de train-env waarmee alle resultaten gemaakt zijn (12 nov 2026).
+#
+# Installeer PyTorch EERST apart, met de CUDA 12.8-index (zie docs/INSTALL.md):
+#
+#   python -m pip install torch==2.11.0 torchvision==0.26.0 --index-url https://download.pytorch.org/whl/cu128
+#   python -m pip install -r requirements-train.txt
+#
+# Waarom in twee stappen: de gewone PyPI-versie van torch is op Windows een CPU-versie.
+# Ultralytics zou die anders meeinstalleren, en dan traint alles op de CPU.
+
+ultralytics==8.4.182
+numpy==2.5.2
+opencv-python==5.0.0.93
+matplotlib==3.11.2
+pillow==12.3.0
+PyYAML==6.0.3
+
+# ONNX-export (training/export_onnx.py); Ultralytics installeert ze anders zelf bij de eerste export
+onnx==1.23.2
+onnxslim==0.1.98

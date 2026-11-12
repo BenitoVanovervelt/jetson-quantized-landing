@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Precisielanding op de Jetson</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!--
+  Presentatiewebsite voor de verdediging (cockpitstijl). Openen: dubbelklik op dit bestand, Chrome, F11.
+  Bediening: pijltjes of spatie = volgende/vorige, 1-9 = hoofdstuk, W = waarom, N = notities + timer,
+  B = bijlagen, V = demovideo, L = licht/donker, Esc = alles sluiten.
+  Cijfers komen uit js/data.js (build_data.py) en js/gallery_data.js (make_gallery.py).
+-->
+<header class="hud" aria-label="Status">
+  <span id="hud-chapter">01 / 15</span>
+  <span class="alt">ALT <b id="hud-alt">20,0</b> m · <span id="hud-name">VRAAG</span> <span class="rec" aria-hidden="true">● LIVE</span></span>
+  <span class="keys">← → · W waarom · N notities · B bijlagen · V video · L licht</span>
+</header>
+
+<main id="chapters">
+
+  <!-- 1 -->
+  <section class="ch layout-split" data-alt="20.0" data-name="VRAAG">
+    <div class="visual">
+      <div class="panel bare"><div class="boxed fit" id="hero"></div></div>
+      <div class="cap">bottom_cam · 640 × 640 · FOV 90° · 5 m boven het platform · box = label van AirSim</div>
+    </div>
+    <div class="text">
+      <span class="kicker">&gt; onderzoeksvraag · Benito Vanovervelt · Howest MCT</span>
+      <h1>Kan een Jetson een landingsplatform snel genoeg herkennen om veilig te landen?</h1>
+      <p>Een drone vliegt met GPS tot boven het platform, maar GPS zit er een paar meter naast. De laatste meters kijkt hij met een camera. Een kleine boordcomputer, de <b>NVIDIA Jetson Orin Nano</b>, moet het platform herkennen en de drone laten dalen of de landing laten afbreken.</p>
+      <p class="small">Hoe kan een TensorRT-geoptimaliseerde objectdetector op een NVIDIA Jetson Orin Nano een landingsplatform in een AirSim-simulatie in realtime (≥ 20 FPS) detecteren, zodat een landingslogica bij verschillende naderingshoeken en -afstanden correct beslist om te dalen of de landing af te breken?</p>
+    </div>
+    <template class="why-src">
+      <h3>WAAROM DIT ONDERZOEK</h3>
+      <p>Bezorgdrones en "drone-in-a-box" landen autonoom. Aan boord is weinig rekenkracht, dus wordt het model vaak gekwantiseerd (minder bits per getal). Dat is sneller, maar misschien minder betrouwbaar. Dit project meet die afweging.</p>
+      <h3>WAAROM IN SIMULATIE</h3>
+      <p>Geen echte drone die kan neerstorten, en elke test is exact herhaalbaar. Dat maakt 300 landingen mogelijk.</p>
+    </template>
+    <template class="notes-src">Ik open met de vraag in gewone taal: kan een kleine boordcomputer een landingsplatform snel genoeg herkennen? GPS brengt de drone tot op een paar meter, de camera doet de rest. De formele onderzoeksvraag staat eronder: TensorRT, Jetson Orin Nano, AirSim, 20 FPS, en correct beslissen: dalen of afbreken.</template>
+  </section>
+
+  <!-- 2 -->
+  <section class="ch layout-split" data-alt="18.5" data-name="SIMULATIE">
+    <div class="visual">
+      <figure class="panel bare" style="margin:0">
+        <img src="img/unreal_scene.jpg" data-optional="Screenshot uit Unreal: de drone boven het platform (img/unreal_scene.jpg)" alt="De drone boven het landingsplatform in de AirSim-scène">
+      </figure>
+      <div class="cap">AirSim 1.8.1 · Unreal Engine 4.27 · scène Blocks</div>
+    </div>
+    <div class="text">
+      <span class="kicker">&gt; de testomgeving</span>
+      <h2>Alles gebeurt in een simulator: AirSim op Unreal Engine</h2>
+      <ul class="plain">
+        <li>Een quadcopter met een <b>camera recht naar beneden</b>: 640 × 640 pixels, kijkhoek 90°.</li>
+        <li>Een <b>landingsplatform van 1 × 1 m</b> met een witte H.</li>
+        <li>De drone vliegt met echte fysica; Python stuurt hem aan via de AirSim-API.</li>
+      </ul>
+    </div>
+    <template class="why-src">
+      <h3>AIRSIM + UNREAL 4.27</h3>
+      <p>De officiële AirSim werkt alleen met Unreal 4.27, heeft de beste documentatie en staat zo in het contractplan.</p>
+      <h3>640 × 640, FOV 90°</h3>
+      <p>640 × 640 is de invoergrootte van beide modellen: geen herschaling. De kijkhoek van 90° bepaalt de maximale naderingshoek van 45°.</p>
+      <h3>GIMBAL (AFWIJKING)</h3>
+      <p>De camera hangt op een gestabiliseerde houder. Zonder gimbal kantelt de camera mee als de drone schuin vliegt, en vanuit 45° viel het platform uit beeld. Echte landingsdrones hebben ook een gestabiliseerde camera.</p>
+      <h3>PYTHON 3.9</h3>
+      <p>Het pakket airsim gebruikt een oude bibliotheek (tornado) die vanaf Python 3.10 crasht. De training draait in een aparte omgeving met Python 3.12.</p>
+    </template>
+    <template class="notes-src">Ik werk in AirSim, een dronesimulator van Microsoft op Unreal Engine. Onderaan de drone hangt een camera die recht naar beneden kijkt, 640 bij 640, kijkhoek 90 graden. Het platform is 1 bij 1 meter met een H, zoals een helikopterplatform.</template>
+  </section>
+
+  <!-- 3 -->
+  <section class="ch layout-wide" data-alt="17.0" data-name="OPSTELLING">
+    <div class="text">
+      <span class="kicker">&gt; de opstelling</span>
+      <h2>De simulator draait op de pc, de detectie op de Jetson</h2>
+    </div>
+    <div class="visual" style="justify-content:flex-start;gap:2.4vh">
+      <div class="flow">
+        <div class="node"><span class="where">PC · WINDOWS</span><b>AirSim + drone</b><span>levert elk camerabeeld en voert de vliegcommando's uit</span></div>
+        <div class="node jetson"><span class="where">JETSON ORIN NANO · 15W · DOCKER</span><b>TensorRT-engine</b><span>YOLO26s of RT-DETR-l, in FP32, FP16 of INT8: zes engines</span></div>
+        <div class="node"><span class="where">PC · PYTHON</span><b>Landingslogica</b><span>dalen, wachten of afbreken; alles naar CSV</span></div>
+      </div>
+      <div class="arrows"><span>JPEG via TCP over USB-C →</span><span>← box + confidence + tijden</span><span>→ snelheidscommando naar de drone</span></div>
+      <p>De Jetson doet <b>alleen de detectie</b>. Zo meet ik precies wat de edge-hardware bijdraagt, los van de simulator. Op een echte drone zit alles aan boord; hier speelt de pc camera en flight controller, omdat de drone gesimuleerd is.</p>
+    </div>
+    <template class="why-src">
+      <h3>WAAROM DE BESLISSING OP DE PC</h3>
+      <p>Zo blijft de logica gelijk voor alle zes engines, en meet ik de Jetson apart.</p>
+      <h3>TCP-SOCKETS, GEEN ROS 2</h3>
+      <p>TCP is eenvoudig, er gaat niets verloren en de volgorde blijft juist. ROS 2 is het standaardframework in robotica, maar te zwaar voor deze opstelling.</p>
+      <h3>USB-C</h3>
+      <p>Een bekabelde verbinding zonder extra hardware. Gemeten: ± 1 ms netwerk per beeld.</p>
+      <h3>DOCKER OP DE JETSON</h3>
+      <p>De Jetson is een gedeeld toestel van het AI Lab: op het systeem mag niets geïnstalleerd worden. De container bevat TensorRT 10.7 en dezelfde Ultralytics-versie als de pc.</p>
+      <h3>15W</h3>
+      <p>Vermogensmodus ingesteld door de eigenaar. In de sterkste modus zou de Jetson sneller zijn: de gemeten snelheden zijn een ondergrens.</p>
+    </template>
+    <template class="notes-src">Links de pc met de simulator, in het midden de Jetson, rechts de landingslogica, ook op de pc. Elk beeld gaat als JPEG over een USB-C-kabel naar de Jetson, die stuurt de box en de confidence terug. De Jetson doet bewust alleen de detectie: zo meet ik wat de edge-hardware bijdraagt.</template>
+  </section>
+
+  <!-- 4 -->
+  <section class="ch layout-split" data-alt="15.5" data-name="HOEK EN AFSTAND">
+    <div class="visual">
+      <div class="panel">
+        <svg viewBox="0 0 400 230" role="img" aria-label="Schets: platform op de grond, verticale lijn erboven, drone schuin erboven op afstand d onder hoek theta, met het kijkveld van de camera" style="display:block;width:100%;max-height:30vh">
+          <path d="M283 63 L118 228 L400 228 L400 180 Z" fill="var(--hud-soft)"/>
+          <line x1="283" y1="63" x2="118" y2="228" stroke="var(--hud)" stroke-dasharray="4 4"/>
+          <line x1="283" y1="63" x2="400" y2="180" stroke="var(--hud)" stroke-dasharray="4 4"/>
+          <line x1="20" y1="210" x2="390" y2="210" stroke="var(--dim)" stroke-width="2"/>
+          <line x1="180" y1="210" x2="180" y2="10" stroke="var(--dim)" stroke-dasharray="6 5"/>
+          <line x1="180" y1="210" x2="283" y2="63" stroke="var(--fg)" stroke-width="2"/>
+          <rect x="165" y="204" width="30" height="6" fill="var(--fg)"/>
+          <path d="M180 160 A50 50 0 0 1 208.7 169" fill="none" stroke="var(--amber)" stroke-width="2"/>
+          <text x="188" y="152" fill="var(--amber)" font-family="Consolas, monospace" font-size="16">θ</text>
+          <text x="240" y="132" fill="var(--fg)" font-family="Consolas, monospace" font-size="16">d</text>
+          <rect x="271" y="56" width="24" height="10" fill="var(--fg)"/>
+          <text x="300" y="52" fill="var(--fg)" font-family="Consolas, monospace" font-size="12">DRONE</text>
+          <text x="135" y="226" fill="var(--fg)" font-family="Consolas, monospace" font-size="12">PLATFORM</text>
+          <text x="314" y="110" fill="var(--hud)" font-family="Consolas, monospace" font-size="11">kijkveld 90°</text>
+        </svg>
+      </div>
+      <div class="grid4" id="distance-row"></div>
+      <div class="cap">echte testbeelden recht boven het platform · groene box = label</div>
+    </div>
+    <div class="text">
+      <span class="kicker">&gt; testvariabelen</span>
+      <h2>Van 0° tot 45°, van 5 tot 30 meter</h2>
+      <p><b>θ</b> is de hoek met de verticale lijn boven het platform, <b>d</b> de afstand tot het platform. θ ∈ {0°, 15°, 30°, 45°}, d ∈ {5, 10, 20, 30} m.</p>
+      <p>Hoe verder weg, hoe kleiner het platform: <b>van 64 pixels op 5 m tot 11 pixels op 30 m</b>. Daar is detecteren het moeilijkst.</p>
+      <div class="formula">x = d·sinθ·cosφ   y = d·sinθ·sinφ   z = −d·cosθ</div>
+    </div>
+    <template class="why-src">
+      <h3>WAAROM MAXIMAAL 45°</h3>
+      <p>De camera kijkt met 90° recht naar beneden, dus 45° naar elke kant. Boven 45° valt het platform buiten beeld.</p>
+      <h3>GROOTTE IN BEELD</h3>
+      <p>Brandpuntsafstand f = 320 / tan(45°) = 320 px. Een platform van 1 m op d meter is ± 320 / d pixels breed.</p>
+      <h3>NED</h3>
+      <p>AirSim gebruikt North-East-Down: z wijst naar beneden, dus 10 m hoog is z = −10. φ is de richting rond het platform.</p>
+    </template>
+    <template class="notes-src">Ik test van waar de drone komt: hoek theta van 0 tot 45 graden, afstand van 5 tot 30 meter. Boven 45 graden valt het platform buiten beeld. Kijk naar de vier beelden: op 30 meter is het platform nog maar 11 pixels breed.</template>
+  </section>
+
+  <!-- 5 -->
+  <section class="ch layout-split" data-alt="14.0" data-name="DATASET">
+    <div class="visual">
+      <figure class="panel bare" style="margin:0"><img src="img/train_grid.jpg" alt="Raster van trainingsbeelden met hun automatische label"></figure>
+      <div class="cap">trainingsbeelden met hun label · data_gen/check_labels.py</div>
+    </div>
+    <div class="text">
+      <span class="kicker">&gt; deelvraag 4</span>
+      <h2>4800 beelden, gelabeld zonder handwerk</h2>
+      <p>Een script zet de drone op duizenden posities, neemt een beeld en vraagt aan AirSim <b>waar het platform in dat beeld staat</b>. Dat wordt het label.</p>
+      <table>
+        <tr><th>deel</th><th>beelden</th><th>waarvoor</th></tr>
+        <tr><td>train</td><td>± 3000</td><td style="text-align:left">het model leert hieruit</td></tr>
+        <tr><td>validatie</td><td>500</td><td style="text-align:left">controle tijdens training</td></tr>
+        <tr><td>test</td><td>1000</td><td style="text-align:left">eindmeting, andere posities</td></tr>
+        <tr><td>kalibratie</td><td>300</td><td style="text-align:left">voor INT8</td></tr>
+      </table>
+      <p class="small">Ook beelden zonder platform en met het platform half in beeld: nodig om af te breken.</p>
+    </div>
+    <template class="why-src">
+      <h3>TELEPORTEREN</h3>
+      <p>Exact herhaalbaar, snel, geen fysica nodig. In een gepauzeerde simulatie met simSetKinematics (positie + snelheid 0), daarna 0,01 s laten lopen.</p>
+      <h3>WAAROM NIET simSetVehiclePose (CONTRACTPLAN)</h3>
+      <p>Die zet de snelheid niet op 0: de drone bleef vallen, tot 47 m naast de bedoelde positie. Met simSetKinematics: ± 0,3 mm.</p>
+      <h3>DETECTIE-API I.P.V. SEGMENTATIE (CONTRACTPLAN)</h3>
+      <p>simGetDetections geeft meteen een box in pixels. Beide zijn automatische labels uit AirSim. Visueel gecontroleerd.</p>
+      <h3>TESTSET OP ANDERE POSITIES</h3>
+      <p>Anders meet je of het model beelden herkent die het al zag, niet of het echt werkt.</p>
+    </template>
+    <template class="notes-src">Labels tekenen met de hand zou dagen duren. Mijn script teleporteert de drone, neemt een beeld en vraagt aan AirSim zelf waar het platform staat. Zo kreeg ik 4800 gelabelde beelden. De testset ligt op andere posities dan de trainingsset, zodat ik echt meet of het model werkt.</template>
+  </section>
+
+  <!-- 6 -->
+  <section class="ch layout-split" data-alt="12.5" data-name="ENGINES">
+    <div class="visual">
+      <div class="panel" id="bits"></div>
+      <div class="panel">
+        <div class="cap" style="margin:0 0 1vh">INFERENTIETIJD PER BEELD OP DE JETSON (ms)</div>
+        <div class="bars" id="inference-bars"></div>
+      </div>
+    </div>
+    <div class="text">
+      <span class="kicker">&gt; deelvragen 1, 2 en 5</span>
+      <h2>Twee modellen, drie rekenprecisies: zes engines</h2>
+      <p><b>YOLO26s</b> is een CNN: kleine filters over het beeld. <b>RT-DETR-l</b> is een transformer: attention over het hele beeld. Beide bijgetraind op mijn dataset.</p>
+      <p>Elk model gaat via ONNX naar <b>TensorRT</b>, op de Jetson zelf, in <b>FP32</b> (referentie), <b>FP16</b> (half zoveel bits) en <b>INT8</b> (gehele getallen, 256 waarden).</p>
+      <p>FP16 is <b>± 2× sneller</b> dan FP32, INT8 nog eens <b>± 1,4×</b>.</p>
+    </div>
+    <template class="why-src">
+      <h3>WAAROM TWEE SOORTEN MODELLEN</h3>
+      <p>Ze zijn anders opgebouwd en reageren misschien anders op kwantisatie. Attention, softmax en layer normalization zijn gevoelig voor afronding.</p>
+      <h3>WAAROM INT8 KALIBRATIE NODIG HEEFT</h3>
+      <p>Met maar 256 waarden moet TensorRT per laag weten tussen welke waarden de getallen liggen. Dat meet het op 300 kalibratiebeelden. Niet representatief = verkeerd bereik = minder nauwkeurig.</p>
+      <h3>ENGINES OP DE JETSON BOUWEN</h3>
+      <p>Een engine is gebonden aan de GPU en de TensorRT-versie. Een engine van de pc werkt niet op de Jetson.</p>
+      <h3>RT-DETR-l INT8 = MENGVORM</h3>
+      <p>TensorRT houdt sommige transformerlagen in hogere precisie. Daardoor verliest RT-DETR-l INT8 nauwelijks nauwkeurigheid.</p>
+      <h3>ALTIJD ALLE DRIE</h3>
+      <p>Op vraag van de coach, consequent over alle deelvragen. FP32 is de referentie.</p>
+    </template>
+    <template class="notes-src">Twee modellen: YOLO26s, een CNN, en RT-DETR-l, een transformer. Elk in drie rekenprecisies, dus zes engines, gebouwd op de Jetson zelf. Minder bits betekent sneller: FP16 halveert de tijd, INT8 wint daar nog eens 40 procent bij. RT-DETR-l is in elke vorm veel trager.</template>
+  </section>
+
+  <!-- 7 -->
+  <section class="ch layout-split" data-alt="11.0" data-name="20 FPS">
+    <div class="visual">
+      <div class="panel" style="display:flex;flex-direction:column;gap:1.6vh">
+        <div class="slider"><label for="in-n">Beelden voor bevestiging N</label><input type="range" id="in-n" min="1" max="10" step="1" value="5"><output id="out-n">5</output></div>
+        <div class="slider"><label for="in-v">Daalsnelheid v</label><input type="range" id="in-v" min="0.5" max="3" step="0.5" value="1"><output id="out-v">1 m/s</output></div>
+        <div class="slider"><label for="in-s">Max. afstand s_max</label><input type="range" id="in-s" min="0.1" max="1" step="0.05" value="0.25"><output id="out-s">0,25 m</output></div>
+        <div class="formula">FPS ≥ N · v / s_max = <b id="out-fps" style="font-size:1.6em;color:var(--hud)">20</b></div>
+        <div class="cap" style="margin:0">GEMETEN KETEN-FPS TEGENOVER DEZE EIS</div>
+        <div class="bars" id="req-bars"></div>
+      </div>
+    </div>
+    <div class="text">
+      <span class="kicker">&gt; deelvraag 3 · de eis</span>
+      <h2>20 FPS: tijdens 5 beelden mag de drone maar 25 cm zakken</h2>
+      <p><b>FPS</b> = beelden per seconde van de hele keten = <b>beslissingen per seconde</b>.</p>
+      <p>De drone daalt met <b>1 m/s</b> en wil het platform <b>5 keer op rij</b> zien. Tijdens die 5 beelden mag hij hoogstens <b>25 cm</b> afleggen: de toegelaten landingsfout.</p>
+      <p>Bij 20 FPS zakt hij <b>5 cm per beeld</b>. Bij 10 FPS zou dat 50 cm per beslissing zijn.</p>
+    </div>
+    <template class="why-src">
+      <h3>WAAROM 5 BEELDEN</h3>
+      <p>Eén detectie kan toeval zijn; vijf op rij is een bevestiging. Staat zo in het contractplan.</p>
+      <h3>WAAROM 0,25 m</h3>
+      <p>Dezelfde grens als de positiefout van een goede landing: de drone mag niet verder vliegen dan hij mag missen.</p>
+      <h3>FPS ≠ INFERENTIETIJD</h3>
+      <p>YOLO26s FP16 rekent zelf 9,4 ms (± 106 FPS), maar de hele keten duurt 44 ms (22,6 FPS). De eis geldt voor de keten: een snel model heeft geen zin als het beeld te laat komt.</p>
+    </template>
+    <template class="notes-src">Waarom 20? De drone daalt met 1 meter per seconde en wil het platform 5 keer op rij zien. In die tijd mag hij maar 25 centimeter afleggen. 5 maal 1 gedeeld door 0,25 is 20. Als ik de snelheid verdubbel, schuif ik v naar 2: dan is de eis 40 FPS en haalt geen enkele engine het nog.</template>
+  </section>
+
+  <!-- 8 -->
+  <section class="ch layout-wide" data-alt="9.5" data-name="KETEN">
+    <div class="text">
+      <span class="kicker">&gt; deelvraag 6 · ketentest: 500 frames per engine, drone hangt op 10 m</span>
+      <h2>Het netwerk kost 1 ms. De simulator kost het meest.</h2>
+    </div>
+    <div class="visual" style="gap:3vh">
+      <div class="chips" id="chain-chips" role="group" aria-label="Kies een engine"></div>
+      <div class="panel" style="padding-bottom:2.4vh">
+        <div class="cap" style="margin:0 0 1vh;display:flex;justify-content:space-between"><span>ÉÉN FRAME · VAN BEELD TOT BESLISSING</span><span id="chain-total"></span></div>
+        <div style="position:relative">
+          <div class="timeline" id="chain-timeline"></div>
+          <div class="limit" id="chain-limit"></div>
+        </div>
+        <div style="position:relative;height:1.6em"><span class="limit-lbl" id="chain-limit-lbl">50 ms = 20 FPS</span></div>
+        <div class="legend" id="chain-legend"></div>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:1.4vw;flex-wrap:wrap">
+        <span class="big" id="chain-fps">22,6</span><span class="mono small">FPS · gemiddelde over 500 frames</span><span class="badge" id="chain-badge"></span>
+        <p style="flex-basis:100%">Per frame: beeld ophalen uit AirSim → JPEG → TCP naar de Jetson → TensorRT → antwoord terug → beslissing. Elke stap is apart gemeten.</p>
+      </div>
+    </div>
+    <template class="why-src">
+      <h3>HOE DE KETENTEST WERKT</h3>
+      <p>De drone hangt stil op 10 m boven het platform, zodat de Jetson echt werk heeft. 520 frames per engine, de eerste 20 tellen niet mee (opwarmen). FPS = 1000 / gemiddelde tijd per frame.</p>
+      <h3>HOE DE NETWERKTIJD GEMETEN WORDT</h3>
+      <p>De pc meet de totale tijd heen en terug, de Jetson meldt hoelang hij zelf werkte. Het verschil is het netwerk. Zo moeten de klokken niet gelijk lopen.</p>
+      <h3>JPEG KWALITEIT 90</h3>
+      <p>Kleiner bericht (± 50–100 kB in plaats van 1,2 MB) en dezelfde kwaliteit als de dataset.</p>
+      <h3>LIVE LAGER</h3>
+      <p>Tijdens het vliegen levert AirSim het beeld trager (± 30 ms i.p.v. 24): live maximaal 19,7 FPS. De Jetson is even snel.</p>
+    </template>
+    <template class="notes-src">De ketentest: de drone hangt stil, en ik stuur 500 beelden door de volledige keten. Hier zie je één frame als balk. Grijs is het beeld ophalen uit de simulator, het grootste stuk. Het netwerk is dat dunne streepje: 1 milliseconde. Bij YOLO26s FP16 blijven we onder de 50 milliseconden: 22,6 FPS. Klik op RT-DETR-l FP32: de inferentie alleen al is 65 milliseconden.</template>
+  </section>
+
+  <!-- 9 -->
+  <section class="ch layout-split" data-alt="8.0" data-name="LANDINGSREGEL">
+    <div class="visual">
+      <div class="states">
+        <div class="state"><span class="badge b-amber">HOLD</span><b>wachten</b><span>nog geen 5 detecties op rij</span></div>
+        <div class="state"><span class="badge b-hud">DESCEND</span><b>dalen</b><span>5 frames op rij met confidence ≥ 0,5</span></div>
+        <div class="state"><span class="badge b-red">ABORT</span><b>afbreken</b><span>3 frames gemist tijdens het dalen, of 100 frames zonder succes</span></div>
+      </div>
+      <figure class="panel bare" style="margin:0"><img src="img/fig_live_confidence.png" alt="Grafiek: mediane confidence tijdens het dalen per rekenprecisie" style="max-height:40vh"></figure>
+    </div>
+    <div class="text">
+      <span class="kicker">&gt; wat de drone doet</span>
+      <h2>Dalen na 5 detecties op rij, anders afbreken</h2>
+      <ul class="plain">
+        <li>Start op <b>20 m</b> van het platform, onder θ = 0°, 15°, 30° of 45°.</li>
+        <li>Eerst <b>horizontaal</b> tot boven het platform, dan <b>verticaal met 1 m/s</b>. De richting komt van de positie (zoals GPS); de camera beslist <b>óf</b> hij mag dalen.</li>
+        <li>Onder <b>3 m</b> landt hij zonder detectie, de laatste meter met 0,3 m/s.</li>
+        <li><b>Goede landing</b>: fout &lt; 0,25 m, snelheid &lt; 0,5 m/s, kanteling &lt; 10°.</li>
+      </ul>
+    </div>
+    <template class="why-src">
+      <h3>DREMPEL 0,5</h3>
+      <p>Getest: elke drempel tussen 0,25 en 0,85 geeft normaal recall 1,00 en 0 % vals alarm. 0,5 zit veilig in het midden.</p>
+      <h3>3 GEMISTE FRAMES</h3>
+      <p>Eén gemist frame mag geen landing stoppen; als het platform echt verdwijnt, moet de drone snel stoppen.</p>
+      <h3>EERST HORIZONTAAL</h3>
+      <p>In een schuine lijn daalde de drone eerst sneller dan hij vooruitkwam: bij 45° werd de hoek groter dan 45° en schoof het platform uit beeld.</p>
+      <h3>BLIND ONDER 3 m</h3>
+      <p>Zo dichtbij valt de schaduw van de drone over het platform, en het model zag nooit beelden dichter dan 4 m. Echte drones schakelen dan ook over op een andere sensor.</p>
+      <img src="img/close_range_view.jpg" alt="Camerabeelden op 3, 2 en 1,5 m: de schaduw van de drone valt over het platform">
+      <h3>KANTELING</h3>
+      <p>Roll en pitch samen: cos(kanteling) = cos(roll) · cos(pitch). 7° roll en 7° pitch is samen bijna 10°.</p>
+    </template>
+    <template class="notes-src">De landingsregel: de drone wacht tot hij het platform 5 keer op rij ziet, dan daalt hij. Mist hij tijdens het dalen 3 frames, of lukt het na 100 frames niet, dan breekt hij af. De grafiek toont de confidence tijdens het dalen: altijd ruim boven de drempel van 0,5. Alleen YOLO26s INT8 zakt even tot 0,78.</template>
+  </section>
+
+  <!-- 10 -->
+  <section class="ch layout-split" data-alt="6.5" data-name="DEMO" data-demo>
+    <div class="visual">
+      <div class="panel" style="display:flex;flex-direction:column;gap:1.4vh">
+        <div class="cap" style="margin:0">VOLGORDE · ALT+TAB NAAR HET VENSTER "LANDINGSDEMO"</div>
+        <div class="steps">
+          <div><span class="key">SPATIE</span>landing vanuit θ = 30° <span class="badge b-hud">DESCEND</span></div>
+          <div><span class="key">P</span>platform weg, nieuwe landing <span class="badge b-red">ABORT</span></div>
+          <div><span class="key">F</span>mist aan: de detectie valt weg</div>
+          <div><span class="key">2</span>wissel naar RT-DETR-l: de FPS zakt</div>
+        </div>
+      </div>
+      <div class="panel" style="border-style:dashed"><span class="key">V</span><b>Back-up</b>: de demovideo fullscreen als de live demo faalt.</div>
+    </div>
+    <div class="text">
+      <span class="kicker">&gt; live</span>
+      <h2>Zie de drone zelf beslissen</h2>
+      <p>Het demovenster is <span class="mono">landing/demo.py</span>. Elk frame gaat naar de Jetson; box, confidence, FPS en beslissing komen terug in beeld.</p>
+      <p class="small">Starten: <span class="mono">bash landing/demo_servers.sh start yolo26s_fp16 rtdetr-l_fp32</span>, daarna <span class="mono">python -m landing.demo --engines …</span> (zie docs/USER_GUIDE.md, 3b).</p>
+    </div>
+    <template class="why-src">
+      <h3>WAT JE ZIET IN HET DEMOVENSTER</h3>
+      <p>De box en confidence van de Jetson, de FPS van de keten, de inferentietijd, de beslissing met de teller x/5, de hoogte en θ.</p>
+      <h3>WAAROM AFBREKEN TONEN</h3>
+      <p>Een foute landing (dalen zonder platform) is de gevaarlijkste fout. De demo toont dat de drone dan blijft hangen.</p>
+    </template>
+    <template class="notes-src">Nu live. Ik wissel naar het demovenster. Eerst een landing vanuit 30 graden: kijk naar de teller, bij 5 op 5 begint hij te dalen. Dan haal ik het platform weg: de drone ziet niets en breekt af. Als er tijd is: mist aan, of wisselen naar RT-DETR-l zodat je de FPS ziet zakken. Lukt het live niet: toets V voor de video.</template>
+  </section>
+
+  <!-- 11 -->
+  <section class="ch layout-split" data-alt="5.0" data-name="LIVE LANDINGEN">
+    <div class="visual">
+      <div class="panel">
+        <div class="cap" style="margin:0 0 1vh">50 LANDINGEN PER ENGINE · 10 PER STARTHOEK + 10 ZONDER PLATFORM</div>
+        <div class="bars" id="outcome-bars"></div>
+        <div class="legend" style="margin-top:1.4vh"><span><i style="background:var(--hud)"></i>goede landing</span><span><i style="background:#2f7d5c"></i>terecht afgebroken</span><span><i style="background:var(--red)"></i>foute landing</span></div>
+      </div>
+    </div>
+    <div class="text">
+      <span class="kicker">&gt; deelvraag 7 · 300 live landingen</span>
+      <h2>300 van de 300 landingen correct beslist</h2>
+      <p><span class="big">300/300</span></p>
+      <p>240 goede landingen, 60 terecht afgebroken. <b>0 foute landingen</b>, 0 onterecht afgebroken. Elke engine kreeg exact dezelfde 50 pogingen.</p>
+      <p>Statistisch: 50 op 50 betekent met 95 % zekerheid <b>minstens 92,9 % correct</b> per engine.</p>
+    </div>
+    <template class="why-src">
+      <h3>DE VIJF UITKOMSTEN</h3>
+      <p>Platform aanwezig + dalen = goede of slechte landing. Platform aanwezig + afbreken = onterecht afgebroken. Geen platform + dalen = foute landing (gevaarlijkst). Geen platform + afbreken = terecht afgebroken.</p>
+      <h3>BETROUWBAARHEIDSINTERVAL</h3>
+      <p>Clopper-Pearson, 95 %. 50/50 → ondergrens 92,9 %. Per starthoek (10/10) maar 69 %.</p>
+      <h3>ZELFDE POGINGEN</h3>
+      <p>Vaste seed: dezelfde hoeken en richtingen voor elke engine. Startposities gecontroleerd tegen de blokken in de scène.</p>
+      <img src="img/fig_live_outcomes.png" alt="Uitkomsten per engine en per starthoek">
+    </template>
+    <template class="notes-src">Per engine 50 landingen, samen 300. Alle 300 correct: 240 goede landingen en 60 keer terecht afgebroken. Geen enkele foute landing. 50 op 50 is geen bewijs van 100 procent: statistisch is het minstens 92,9 procent. En belangrijk: alles scoort hier perfect, dus hier zie je geen verschil tussen de rekenprecisies.</template>
+  </section>
+
+  <!-- 12 -->
+  <section class="ch layout-split" data-alt="3.5" data-name="SLECHT ZICHT">
+    <div class="visual">
+      <div class="chips" id="gal-model" role="group" aria-label="Kies een model"></div>
+      <div class="panel bare"><div class="boxed fit" id="gal-img"></div></div>
+      <div class="chips" id="gal-cond" role="group" aria-label="Kies een conditie"></div>
+    </div>
+    <div class="text">
+      <span class="kicker">&gt; deelvragen 7 en 8 · 1000 testbeelden per conditie, op de Jetson</span>
+      <h2>Bij slecht zicht wordt het verschil zichtbaar</h2>
+      <div class="cap" id="gal-bars-title" style="margin:0">RECALL PER REKENPRECISIE</div>
+      <div class="bars" id="gal-bars"></div>
+      <p id="gal-text"></p>
+      <p class="small" id="gal-note"></p>
+    </div>
+    <template class="why-src">
+      <h3>WAAROM EXTRA TESTEN</h3>
+      <p>Alles scoorde perfect: dan weet je niet waar de grens ligt en zie je geen verschil tussen rekenprecisies (plafondeffect).</p>
+      <h3>DE CONDITIES</h3>
+      <p>Mist en stof via het weer van AirSim, opnieuw gerenderd op dezelfde posities met nieuwe labels. Weinig licht (4× donkerder), bewegingsonscherpte (15 px) en ruis als nabewerking. "geen" = zelfde posities zonder effect.</p>
+      <h3>RECALL EN PRECISION</h3>
+      <p>Recall: hoeveel keer het platform gevonden wordt. Precision: welk deel van de detecties echt het platform is.</p>
+      <h3>HET BEELD HIER</h3>
+      <p>Eén testbeeld (20 m, θ 15°) met de box van het model op de pc (PyTorch, = FP32), drempel 0,5. De balken zijn de Jetson-metingen over 1000 beelden.</p>
+    </template>
+    <template class="notes-src">Omdat alles perfect scoorde, heb ik het moeilijker gemaakt: mist, stof, weinig licht, onscherpte en ruis. Kijk naar mist 0,5: FP16 is gelijk aan FP32, maar INT8 mist 14 procentpunten meer. Kwantisatie kost dus pas iets als het moeilijk wordt. En YOLO26s faalt veilig: het ziet dan niets, dus de drone breekt af.</template>
+  </section>
+
+  <!-- 13 -->
+  <section class="ch layout-split" data-alt="2.0" data-name="VALS PLATFORM">
+    <div class="visual">
+      <figure class="panel bare" style="margin:0;border-color:var(--red)"><img src="img/rtdetr_fog_false_detections.jpg" alt="Mistbeelden waarin RT-DETR-l een platform detecteert waar er geen is"></figure>
+      <div class="cap" style="color:var(--red)">FALSE TARGET · RT-DETR-l · MIST · CONFIDENCE 0,90–0,94</div>
+    </div>
+    <div class="text">
+      <span class="kicker">&gt; het gevaarlijkste resultaat</span>
+      <h2>RT-DETR-l ziet in mist een platform dat er niet is</h2>
+      <p>In mist tekent RT-DETR-l een groot vals vlak, met een <b>confidence van ± 0,93</b>. In <b>4 tot 7 %</b> van de beelden zonder platform, in elke rekenprecisie.</p>
+      <p>Dat is de gevaarlijkste fout: de drone zou dalen <b>waar geen platform is</b>.</p>
+      <p><b>Geen drempel houdt dat tegen</b>: het valse vlak scoort hoger dan veel echte detecties.</p>
+    </div>
+    <template class="why-src">
+      <h3>DREMPEL-ANALYSE</h3>
+      <p>Alle drempels van 0,05 tot 0,95 getest (op de pc). Normaal: elke drempel tussen 0,25 en 0,85 werkt even goed. In mist helpt een andere drempel niet.</p>
+      <img src="img/fig_threshold_sweep.png" alt="Recall en vals alarm per drempel">
+      <h3>MOGELIJKE OPLOSSING</h3>
+      <p>Een plausibiliteitscontrole op de grootte van de box: het platform is ± 320 / hoogte pixels breed. Een vlak dat veel groter is, kan het platform niet zijn. Niet gebouwd; voorstel voor vervolgwerk.</p>
+    </template>
+    <template class="notes-src">Dit is het gevaarlijkste resultaat. In mist ziet RT-DETR-l rechtsonder een platform dat er niet is, met 93 procent zekerheid. Een drone zou daar dalen. Geen drempel houdt dat tegen. YOLO26s doet dat niet: het ziet in mist gewoon niets, en dan breekt de drone af. Dat is veilig.</template>
+  </section>
+
+  <!-- 14 -->
+  <section class="ch layout-split" data-alt="0.5" data-name="ANTWOORD">
+    <div class="visual">
+      <div class="panel">
+        <table id="answer-table"></table>
+      </div>
+    </div>
+    <div class="text">
+      <span class="kicker">&gt; deelvraag 8 en de hoofdvraag</span>
+      <h2>YOLO26s in FP16</h2>
+      <ul class="plain">
+        <li><b>Snel genoeg:</b> 22,6 FPS voor de volledige keten.</li>
+        <li><b>Correct:</b> 50/50, nooit gedaald zonder platform.</li>
+        <li><b>Even nauwkeurig als FP32</b>, ook bij slecht zicht.</li>
+        <li><b>Faalt veilig:</b> ziet het platform niet, in plaats van een vals platform.</li>
+      </ul>
+      <p>INT8 is sneller, maar verliest recall net als het zicht slecht is. RT-DETR-l haalt 20 FPS niet en ziet in mist een vals platform.</p>
+    </div>
+    <template class="why-src">
+      <h3>ANTWOORD OP DE HOOFDVRAAG</h3>
+      <p>Met YOLO26s als TensorRT-engine in FP16 haalt de volledige keten 22,6 FPS en beslist de landingslogica correct bij alle geteste naderingshoeken (0–45°) en afstanden (5–30 m). De grens ligt niet bij hoek of afstand, maar bij slecht zicht.</p>
+      <h3>WAAROM NIET INT8</h3>
+      <p>Iets lagere keten-FPS dan FP16 in de ketentest (22,0 tegenover 22,6, het beeld ophalen varieert) en minder recall bij mist en onscherpte. De winst in inferentie (6,8 tegenover 9,4 ms) valt weg tegen de 24 ms van de simulator.</p>
+      <img src="img/fig_offline_heatmap.png" alt="mAP50-95 per hoek en afstand voor elke engine">
+    </template>
+    <template class="notes-src">Mijn antwoord: YOLO26s in FP16. Haalt de 20 FPS, nooit fout geland, even nauwkeurig als FP32, en faalt veilig. INT8 lijkt aantrekkelijk omdat het sneller rekent, maar in de keten wint het niets, want de simulator domineert, en bij slecht zicht verliest het recall.</template>
+  </section>
+
+  <!-- 15 -->
+  <section class="ch layout-split" data-alt="0.0" data-name="TOUCHDOWN">
+    <div class="visual">
+      <div class="panel" style="text-align:center;padding:5vh 2vw">
+        <div class="big">TOUCHDOWN</div>
+        <div class="mono small" style="margin-top:1vh">ALT 0,0 m · 300/300 · 22,6 FPS</div>
+        <h2 style="margin-top:4vh">Zijn er nog vragen?</h2>
+      </div>
+    </div>
+    <div class="text">
+      <span class="kicker">&gt; beperkingen</span>
+      <h2>Wat dit nog niet bewijst</h2>
+      <ul class="plain">
+        <li><b>Live</b> haalt de keten maximaal 19,7 FPS: de simulator levert het beeld trager tijdens het vliegen. De Jetson zelf haalt de eis.</li>
+        <li><b>Simulatie</b>: echte beelden (licht, schaduw, wind) zijn moeilijker.</li>
+        <li>De <b>laatste 3 m</b> worden niet door detectie bewaakt.</li>
+        <li>Jetson in <b>15W</b>: de snelheden zijn een ondergrens.</li>
+        <li><b>Vervolg</b>: echte foto's van een geprint platform, domain randomization, een controle op de grootte van de box.</li>
+      </ul>
+    </div>
+    <template class="why-src">
+      <h3>AFWIJKINGEN TEGENOVER HET CONTRACTPLAN</h3>
+      <ul><li>Gimbal op de camera.</li><li>Labels uit de detectie-API i.p.v. segmentatie.</li><li>simSetKinematics i.p.v. simSetVehiclePose.</li><li>Landingsregel aangevuld: 3 gemiste frames, 100 frames, blind onder 3 m.</li><li>Extra: slecht zicht, drempel-analyse, betrouwbaarheidsintervallen.</li></ul>
+      <p>Volledige lijst: docs/AFWIJKINGEN.md.</p>
+    </template>
+    <template class="notes-src">Tot slot de beperkingen, die zeg ik zelf. Live haal ik maximaal 19,7 FPS, door de simulator, niet door de Jetson. Alles is simulatie. De laatste 3 meter zijn blind. En de Jetson draaide op 15 watt. Zijn er nog vragen?</template>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <button class="navbtn" id="prev" aria-label="Vorig hoofdstuk">←</button>
+  <div class="progress" id="progress" role="group" aria-label="Hoofdstukken"></div>
+  <button class="navbtn" id="next" aria-label="Volgend hoofdstuk">→</button>
+</footer>
+
+<aside class="drawer" id="why" aria-label="Waarom" aria-hidden="true"></aside>
+<aside class="notes" id="notes" aria-label="Spreeknotities"><span class="timer" id="timer">00:00</span><div id="notes-text"></div><div class="small" style="margin-top:0.6em">T = timer opnieuw · seintje jury rond 8:00, stop na 10:00</div></aside>
+
+<section class="appendix" id="appendix" aria-label="Bijlagen">
+  <span class="kicker">&gt; bijlagen · B om te sluiten</span>
+  <h2>Achtergrond voor de vragenronde</h2>
+  <div class="appendix-grid">
+    <div>
+      <h3>BRONNEN</h3>
+      <p class="todo">IN TE VULLEN: welke bronnen gebruikte je echt, en welke droeg het meest bij?</p>
+      <ul>
+        <li>S. Shah et al., "AirSim", Field and Service Robotics, 2018.</li>
+        <li>Y. Zhao et al., "DETRs beat YOLOs on real-time object detection", CVPR 2024.</li>
+        <li>B. Jacob et al., "Quantization and training of neural networks for efficient integer-arithmetic-only inference", CVPR 2018.</li>
+        <li>H. Wu et al., "Integer quantization for deep learning inference", arXiv:2004.09602, 2020.</li>
+        <li>J. Tobin et al., "Domain randomization", IROS 2017.</li>
+        <li>Ultralytics: TensorRT-export en NVIDIA Jetson-gids.</li>
+        <li>NVIDIA TensorRT-documentatie.</li>
+        <li>AirSim: object detection.</li>
+        <li>PX4: precision landing.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>LEVENSLANG LEREN</h3>
+      <p class="todo">IN TE VULLEN: welke communities volgde je (bv. GitHub-issues van Ultralytics of AirSim, NVIDIA Developer Forums), heb je zelf iets gedeeld, en welke cursussen of platformen gebruikte je?</p>
+    </div>
+    <div>
+      <h3>VERSIES</h3>
+      <ul>
+        <li>AirSim 1.8.1 · Unreal Engine 4.27 · Python 3.9 (AirSim) en 3.12 (training)</li>
+        <li>Jetson Orin Nano · JetPack 6 · TensorRT 10.7 in Docker · 15W</li>
+        <li>Ultralytics 8.4 · YOLO26s en RT-DETR-l, 100 epochs, RTX 3060 Laptop</li>
+      </ul>
+      <h3 style="margin-top:1.2em">WOORDEN</h3>
+      <ul>
+        <li><b>Rekenprecisie</b>: FP32, FP16, INT8. <b>Precision</b>: de metriek.</li>
+        <li><b>Recall</b>: deel van de keren dat het platform gevonden wordt.</li>
+        <li><b>mAP50 / mAP50-95</b>: nauwkeurigheid bij overlap ≥ 0,5, en gemiddeld over 0,5–0,95.</li>
+        <li><b>Engine</b>: TensorRT-model voor één GPU en één rekenprecisie.</li>
+        <li><b>Kalibratie</b>: beelden door het model sturen om het INT8-bereik te bepalen.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>OFFLINE: mAP50-95 PER HOEK EN AFSTAND</h3>
+      <img src="img/fig_offline_heatmap.png" alt="mAP50-95 per hoek en afstand voor elke engine" style="width:100%;border:1px solid var(--line)">
+    </div>
+  </div>
+</section>
+
+<div class="video-wrap" id="video-wrap">
+  <video id="video" src="video/demo.mp4" controls preload="metadata"></video>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/gallery_data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

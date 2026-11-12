@@ -1,0 +1,35 @@
+1000 testbeelden uit C:\dev\landing-project\data\landingpad
+Connected!
+Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+
+  clean: 250/1000
+  clean: 500/1000
+  clean: 750/1000
+  clean: 1000/1000
+  clean: 0 positieve beelden waar het platform nu buiten beeld valt (andere camerarichting)
+  clean: 0 beelden met afwijkende positie
+  fog_05: 250/1000
+  fog_05: 500/1000
+  fog_05: 750/1000
+  fog_05: 1000/1000
+  fog_05: 0 positieve beelden waar het platform nu buiten beeld valt (andere camerarichting)
+  fog_05: 0 beelden met afwijkende positie
+  fog_10: 250/1000
+  fog_10: 500/1000
+  fog_10: 750/1000
+  fog_10: 1000/1000
+  fog_10: 0 positieve beelden waar het platform nu buiten beeld valt (andere camerarichting)
+  fog_10: 0 beelden met afwijkende positie
+  dust_05: 250/1000
+  dust_05: 500/1000
+  dust_05: 750/1000
+  dust_05: 1000/1000
+  dust_05: 0 positieve beelden waar het platform nu buiten beeld valt (andere camerarichting)
+  dust_05: 0 beelden met afwijkende positie
+  dust_10: 250/1000
+  dust_10: 500/1000
+  dust_10: 750/1000
+  dust_10: 1000/1000
+  dust_10: 0 positieve beelden waar het platform nu buiten beeld valt (andere camerarichting)
+  dust_10: 0 beelden met afwijkende positie
+Klaar: C:\dev\landing-project\data\hard

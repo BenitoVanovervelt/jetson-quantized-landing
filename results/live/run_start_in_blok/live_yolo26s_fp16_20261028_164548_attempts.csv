@@ -1,0 +1,1 @@
+timestamp,attempt_id,model,precision_mode,theta_deg,distance_m,phi_deg,frame_id,detected,confidence,box_x1,box_y1,box_x2,box_y2,capture_ms,inference_ms,server_ms,network_ms,frame_ms,fps,decision,drone_x,drone_y,drone_z,altitude_m,pad_present,outcome,outcome_reasons,position_error_m,landing_speed_ms,tilt_deg

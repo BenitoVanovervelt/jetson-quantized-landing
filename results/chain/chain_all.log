@@ -1,0 +1,71 @@
+=== yolo26s_fp32 ===
+Connected!
+Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+
+Opstijgen naar 10 m boven het platform...
+
+Frames gemeten:         500
+Gemiddelde FPS:         18.5
+5e percentiel FPS:      15.6
+Frametijd gemiddeld:    54.0 ms
+  waarvan inferentie:   19.0 ms
+  waarvan netwerk:      1.0 ms
+Eis >= 20 FPS gehaald:  nee
+Log: C:\dev\landing-project\results\chain\chain_yolo26s_fp32_20261028_150109.csv
+=== yolo26s_fp16 ===
+Connected!
+Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+
+Opstijgen naar 10 m boven het platform...
+
+Frames gemeten:         500
+Gemiddelde FPS:         22.6
+5e percentiel FPS:      18.7
+Frametijd gemiddeld:    44.3 ms
+  waarvan inferentie:   9.4 ms
+  waarvan netwerk:      1.0 ms
+Eis >= 20 FPS gehaald:  ja
+Log: C:\dev\landing-project\results\chain\chain_yolo26s_fp16_20261028_150158.csv
+=== rtdetr-l_fp32 ===
+Connected!
+Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+
+Opstijgen naar 10 m boven het platform...
+
+Frames gemeten:         500
+Gemiddelde FPS:         9.9
+5e percentiel FPS:      8.9
+Frametijd gemiddeld:    101.3 ms
+  waarvan inferentie:   65.2 ms
+  waarvan netwerk:      1.0 ms
+Eis >= 20 FPS gehaald:  nee
+Log: C:\dev\landing-project\results\chain\chain_rtdetr-l_fp32_20261028_150243.csv
+=== rtdetr-l_fp16 ===
+Connected!
+Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+
+Opstijgen naar 10 m boven het platform...
+
+Frames gemeten:         500
+Gemiddelde FPS:         13.7
+5e percentiel FPS:      12.0
+Frametijd gemiddeld:    72.8 ms
+  waarvan inferentie:   36.0 ms
+  waarvan netwerk:      1.0 ms
+Eis >= 20 FPS gehaald:  nee
+Log: C:\dev\landing-project\results\chain\chain_rtdetr-l_fp16_20261028_150356.csv
+=== rtdetr-l_int8 ===
+Connected!
+Client Ver:1 (Min Req: 1), Server Ver:1 (Min Req: 1)
+
+Opstijgen naar 10 m boven het platform...
+
+Frames gemeten:         500
+Gemiddelde FPS:         15.9
+5e percentiel FPS:      13.6
+Frametijd gemiddeld:    62.9 ms
+  waarvan inferentie:   25.9 ms
+  waarvan netwerk:      1.0 ms
+Eis >= 20 FPS gehaald:  nee
+Log: C:\dev\landing-project\results\chain\chain_rtdetr-l_int8_20261028_150456.csv
+Klaar

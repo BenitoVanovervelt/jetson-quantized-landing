@@ -1,0 +1,22 @@
+# Pakketten voor airsim-env (Python 3.9).
+#
+# Installeer in TWEE stappen, niet met één "pip install -r":
+#
+#   python -m pip install "numpy<2" msgpack-rpc-python wheel
+#   python -m pip install --no-build-isolation airsim "numpy<2" "opencv-contrib-python<4.12"
+#
+# Waarom:
+# - De setup van airsim importeert numpy al tijdens de installatie. Daarom moet numpy
+#   er eerst staan, en --no-build-isolation zorgt dat pip die numpy ook gebruikt
+#   (anders bouwt pip in een lege tijdelijke omgeving zonder numpy).
+# - numpy<2: airsim dateert van voor NumPy 2.
+# - airsim hangt zelf af van opencv-contrib-python (een uitgebreide versie van
+#   opencv-python, zelfde "import cv2"). Vanaf 4.12 vraagt OpenCV numpy>=2,
+#   dus pinnen op <4.12. Installeer NIET ook opencv-python: beide pakketten
+#   schrijven naar dezelfde cv2-map en botsen.
+
+numpy<2
+msgpack-rpc-python
+wheel
+airsim==1.8.1
+opencv-contrib-python<4.12

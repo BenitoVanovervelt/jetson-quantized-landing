@@ -1,0 +1,23 @@
+14:59:24 klaar yolo26s fog_05
+15:03:21 klaar yolo26s fog_10
+15:07:20 klaar yolo26s dust_05
+15:11:19 klaar yolo26s dust_10
+15:17:04 klaar rtdetr-l fog_05
+15:22:57 klaar rtdetr-l fog_10
+15:31:37 klaar rtdetr-l dust_05
+15:39:02 klaar rtdetr-l dust_10
+15:46:48 klaar rtdetr-l dark
+15:54:30 klaar rtdetr-l blur
+16:01:30 klaar rtdetr-l noise
+KLAAR
+16:13:15 klaar yolo26s clean
+16:21:55 klaar yolo26s fog_05
+16:30:31 klaar yolo26s fog_10
+16:38:32 klaar yolo26s dust_05
+16:46:44 klaar yolo26s dust_10
+17:00:59 klaar rtdetr-l clean
+17:14:33 klaar rtdetr-l fog_05
+17:28:41 klaar rtdetr-l fog_10
+17:40:59 klaar rtdetr-l dust_05
+17:46:37 klaar rtdetr-l dust_10
+KLAAR_WEER
