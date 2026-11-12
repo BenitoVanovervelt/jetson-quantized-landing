@@ -17,6 +17,9 @@ Vul een rij in zodra iets echt gebeurd is: een gelezen bron, een post, een react
 
 | Datum | Platform | Wat | Link | Reacties | Wat ik ermee deed |
 |---|---|---|---|---|---|
+| 12 nov 2026 | GitHub | Volledige broncode, handleidingen en meetresultaten (AGPL-3.0) | https://github.com/BenitoVanovervelt/jetson-quantized-landing | | |
+| 12 nov 2026 | Hugging Face Datasets | Dataset: 4800 gelabelde beelden en metadata (CC BY 4.0) | https://huggingface.co/datasets/benitovvt/airsim-landing-pad | | |
+| 12 nov 2026 | Hugging Face Models | YOLO26s en RT-DETR-l, gefinetuned (AGPL-3.0) | https://huggingface.co/benitovvt/landing-pad-yolo26s-rtdetr-l | | |
 | | Medium | Artikel "FP32 vs FP16 vs INT8 on a Jetson Orin Nano" | | | |
 | | NVIDIA Developer Forums | Antwoord: geheugenfout bij het bouwen van een engine | | | |
 | | NVIDIA Developer Forums | Antwoord: RT-DETR naar INT8 (mengvorm) | | | |

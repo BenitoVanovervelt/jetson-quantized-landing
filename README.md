@@ -54,6 +54,13 @@ Scripts in `landing/` starten met `python -m landing.<script>` vanuit de project
 python -m unittest landing.test_logic -v
 ```
 
+## Dataset en modellen
+
+- Dataset (4800 beelden met labels en metadata): https://huggingface.co/datasets/benitovvt/airsim-landing-pad
+- Gefinetunede modellen (`yolo26s.pt`, `rtdetr-l.pt`): https://huggingface.co/benitovvt/landing-pad-yolo26s-rtdetr-l
+
+Zo kan je trainen, evalueren of engines bouwen zonder AirSim en Unreal te installeren.
+
 ## Licentie
 
 - Code, documentatie en resultaten: **AGPL-3.0-only** ([LICENSE](LICENSE)). Het project gebruikt Ultralytics, dat zelf AGPL-3.0 is; code en modellen die erop verder bouwen vallen daar ook onder.
