@@ -1,0 +1,7 @@
+timestamp,name,precision_mode,status,mem_free_mb,build_s,engine_mb,inference_ms_mean,inference_ms_p95,fps_inference_only,error_file,jetpack,tensorrt,ultralytics,torch,power_mode
+2026-10-28 09:37:47,yolo26s,fp32,ok,3345,258,39.9,18.97,18.99,52.7,,"# R36 (release), REVISION: 4.7, GCID: 42132812, BOARD: generic, EABI: aarch64, DATE: Thu Sep 18 22:54:44 UTC 2025",10.7.0,8.4.182,2.10.0,NV Power Mode: 15W
+2026-10-28 09:42:22,yolo26s,fp16,ok,3211,537,22.7,9.38,9.39,106.6,,"# R36 (release), REVISION: 4.7, GCID: 42132812, BOARD: generic, EABI: aarch64, DATE: Thu Sep 18 22:54:44 UTC 2025",10.7.0,8.4.182,2.10.0,NV Power Mode: 15W
+2026-10-28 09:51:34,yolo26s,int8,ok,3268,842,13.2,6.77,6.78,147.8,,"# R36 (release), REVISION: 4.7, GCID: 42132812, BOARD: generic, EABI: aarch64, DATE: Thu Sep 18 22:54:44 UTC 2025",10.7.0,8.4.182,2.10.0,NV Power Mode: 15W
+2026-10-28 10:05:50,rtdetr-l,fp32,ok,3363,344,131.3,65.03,66.2,15.4,,"# R36 (release), REVISION: 4.7, GCID: 42132812, BOARD: generic, EABI: aarch64, DATE: Thu Sep 18 22:54:44 UTC 2025",10.7.0,8.4.182,2.10.0,NV Power Mode: 15W
+2026-10-28 10:12:02,rtdetr-l,fp16,ok,3796,728,67.5,36.08,37.02,27.7,,"# R36 (release), REVISION: 4.7, GCID: 42132812, BOARD: generic, EABI: aarch64, DATE: Thu Sep 18 22:54:44 UTC 2025",10.7.0,8.4.182,2.10.0,NV Power Mode: 15W
+2026-10-28 10:24:33,rtdetr-l,int8,ok,4384,2069,44.3,26.29,27.23,38.0,,"# R36 (release), REVISION: 4.7, GCID: 42132812, BOARD: generic, EABI: aarch64, DATE: Thu Sep 18 22:54:44 UTC 2025",10.7.0,8.4.182,2.10.0,NV Power Mode: 15W

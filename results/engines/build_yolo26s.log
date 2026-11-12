@@ -1,0 +1,489 @@
+Creating new Ultralytics Settings v0.0.8 file ✅ 
+View Ultralytics Settings with 'yolo settings' or at '/tmp/ultralytics/Ultralytics/settings.json'
+Update Settings with 'yolo settings key=value', i.e. 'yolo settings runs_dir=path/to/dir'. For help see https://docs.ultralytics.com/usage/settings.
+Versies: {'jetpack': '# R36 (release), REVISION: 4.7, GCID: 42132812, BOARD: generic, EABI: aarch64, DATE: Thu Sep 18 22:54:44 UTC 2025', 'tensorrt': '10.7.0', 'ultralytics': '8.4.182', 'torch': '2.10.0', 'power_mode': 'NV Power Mode: 15W'}
+
+=== yolo26s FP32 === (geheugen vrij 3345 MB, beschikbaar 4618 MB)
+Ultralytics 8.4.182 🚀 Python-3.10.12 torch-2.10.0 CUDA:0 (Orin, 7620MiB)
+YOLO26s summary (fused): 120 layers, 9,465,567 parameters, 0 gradients, 20.8 GFLOPs
+
+[34m[1mPyTorch:[0m starting from 'models/yolo26s.pt' with input shape (1, 3, 640, 640) BCHW and output shape(s) (1, 5, 8400) (19.4 MB)
+
+[34m[1mONNX:[0m starting export with onnx 1.22.0 opset 18...
+[34m[1mONNX:[0m slimming with onnxslim 0.1.98...
+[34m[1mONNX:[0m export success ✅ 6.7s, saved as 'models/yolo26s.onnx' (36.4 MB)
+
+[34m[1mTensorRT:[0m starting export with TensorRT 10.7.0...
+[10/28/2026-09:37:56] [TRT] [I] [MemUsageChange] Init CUDA: CPU -1, GPU +0, now: CPU 811, GPU 3987 (MiB)
+[10/28/2026-09:37:59] [TRT] [I] [MemUsageChange] Init builder kernel library: CPU +981, GPU +1152, now: CPU 1822, GPU 5176 (MiB)
+[10/28/2026-09:37:59] [TRT] [I] ----------------------------------------------------------------
+[10/28/2026-09:37:59] [TRT] [I] Input filename:   models/yolo26s.onnx
+[10/28/2026-09:37:59] [TRT] [I] ONNX IR version:  0.0.8
+[10/28/2026-09:37:59] [TRT] [I] Opset version:    18
+[10/28/2026-09:37:59] [TRT] [I] Producer name:    pytorch
+[10/28/2026-09:37:59] [TRT] [I] Producer version: 2.10.0
+[10/28/2026-09:37:59] [TRT] [I] Domain:           
+[10/28/2026-09:37:59] [TRT] [I] Model version:    0
+[10/28/2026-09:37:59] [TRT] [I] Doc string:       
+[10/28/2026-09:37:59] [TRT] [I] ----------------------------------------------------------------
+[34m[1mTensorRT:[0m input "images" with shape(1, 3, 640, 640) DataType.FLOAT
+[34m[1mTensorRT:[0m output "output0" with shape(1, 5, 8400) DataType.FLOAT
+[34m[1mTensorRT:[0m building FP32 engine as models/yolo26s.engine
+[10/28/2026-09:37:59] [TRT] [I] Local timing cache in use. Profiling results in this builder pass will not be stored.
+[10/28/2026-09:39:56] [TRT] [I] Compiler backend is used during engine build.
+[10/28/2026-09:42:00] [TRT] [I] Detected 1 inputs and 3 output network tensors.
+[10/28/2026-09:42:04] [TRT] [I] Total Host Persistent Memory: 653664 bytes
+[10/28/2026-09:42:04] [TRT] [I] Total Device Persistent Memory: 0 bytes
+[10/28/2026-09:42:04] [TRT] [I] Max Scratch Memory: 5529600 bytes
+[10/28/2026-09:42:04] [TRT] [I] [BlockAssignment] Started assigning block shifts. This will take 259 steps to complete.
+[10/28/2026-09:42:04] [TRT] [I] [BlockAssignment] Algorithm ShiftNTopDown took 32.8101ms to assign 10 blocks to 259 nodes requiring 37274112 bytes.
+[10/28/2026-09:42:04] [TRT] [I] Total Activation Memory: 37273600 bytes
+[10/28/2026-09:42:04] [TRT] [I] Total Weights Memory: 37983300 bytes
+[10/28/2026-09:42:04] [TRT] [I] Compiler backend is used during engine execution.
+[10/28/2026-09:42:04] [TRT] [I] Engine generation completed in 245.07 seconds.
+[10/28/2026-09:42:04] [TRT] [I] [MemUsageStats] Peak memory usage of TRT CPU/GPU memory allocators: CPU 4 MiB, GPU 100 MiB
+[34m[1mTensorRT:[0m export success ✅ 255.3s, saved as 'models/yolo26s.engine' (38.0 MB)
+
+Export complete (257.2s)
+Results saved to [1m/workspace/landing-project/models/yolo26s.engine[0m
+Predict:         yolo predict task=detect model=models/yolo26s.engine imgsz=640 
+Validate:        yolo val task=detect model=models/yolo26s.engine imgsz=640  
+Visualize:       https://netron.app
+Loading /workspace/landing-project/engines/yolo26s_fp32.engine for TensorRT inference...
+[10/28/2026-09:42:05] [TRT] [I] Loaded engine size: 38 MiB
+[10/28/2026-09:42:05] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +35, now: CPU 0, GPU 71 (MiB)
+OK: yolo26s_fp32.engine, inferentie 19.0 ms (53 FPS, enkel het model)
+
+Samenvatting: /workspace/landing-project/results/engines/summary.csv
+Versies: {'jetpack': '# R36 (release), REVISION: 4.7, GCID: 42132812, BOARD: generic, EABI: aarch64, DATE: Thu Sep 18 22:54:44 UTC 2025', 'tensorrt': '10.7.0', 'ultralytics': '8.4.182', 'torch': '2.10.0', 'power_mode': 'NV Power Mode: 15W'}
+
+=== yolo26s FP16 === (geheugen vrij 3211 MB, beschikbaar 4618 MB)
+WARNING ⚠️ 'half' is deprecated and will be removed in the future. Use 'quantize' instead.
+Ultralytics 8.4.182 🚀 Python-3.10.12 torch-2.10.0 CUDA:0 (Orin, 7620MiB)
+YOLO26s summary (fused): 120 layers, 9,465,567 parameters, 0 gradients, 20.8 GFLOPs
+
+[34m[1mPyTorch:[0m starting from 'models/yolo26s.pt' with input shape (1, 3, 640, 640) BCHW and output shape(s) (1, 5, 8400) (19.4 MB)
+
+[34m[1mONNX:[0m starting export with onnx 1.22.0 opset 18...
+[34m[1mONNX:[0m slimming with onnxslim 0.1.98...
+[34m[1mONNX:[0m export success ✅ 6.8s, saved as 'models/yolo26s.onnx' (36.4 MB)
+
+[34m[1mTensorRT:[0m starting export with TensorRT 10.7.0...
+[10/28/2026-09:42:31] [TRT] [I] [MemUsageChange] Init CUDA: CPU -1, GPU +0, now: CPU 811, GPU 3987 (MiB)
+[10/28/2026-09:42:34] [TRT] [I] [MemUsageChange] Init builder kernel library: CPU +980, GPU +1159, now: CPU 1821, GPU 5183 (MiB)
+[10/28/2026-09:42:34] [TRT] [I] ----------------------------------------------------------------
+[10/28/2026-09:42:34] [TRT] [I] Input filename:   models/yolo26s.onnx
+[10/28/2026-09:42:34] [TRT] [I] ONNX IR version:  0.0.8
+[10/28/2026-09:42:34] [TRT] [I] Opset version:    18
+[10/28/2026-09:42:34] [TRT] [I] Producer name:    pytorch
+[10/28/2026-09:42:34] [TRT] [I] Producer version: 2.10.0
+[10/28/2026-09:42:34] [TRT] [I] Domain:           
+[10/28/2026-09:42:34] [TRT] [I] Model version:    0
+[10/28/2026-09:42:34] [TRT] [I] Doc string:       
+[10/28/2026-09:42:34] [TRT] [I] ----------------------------------------------------------------
+[34m[1mTensorRT:[0m input "images" with shape(1, 3, 640, 640) DataType.FLOAT
+[34m[1mTensorRT:[0m output "output0" with shape(1, 5, 8400) DataType.FLOAT
+[34m[1mTensorRT:[0m building FP16 engine as models/yolo26s.engine
+[10/28/2026-09:42:34] [TRT] [I] Local timing cache in use. Profiling results in this builder pass will not be stored.
+[10/28/2026-09:47:35] [TRT] [I] Compiler backend is used during engine build.
+[10/28/2026-09:51:12] [TRT] [I] Detected 1 inputs and 3 output network tensors.
+[10/28/2026-09:51:18] [TRT] [I] Total Host Persistent Memory: 621616 bytes
+[10/28/2026-09:51:18] [TRT] [I] Total Device Persistent Memory: 0 bytes
+[10/28/2026-09:51:18] [TRT] [I] Max Scratch Memory: 2764800 bytes
+[10/28/2026-09:51:18] [TRT] [I] [BlockAssignment] Started assigning block shifts. This will take 184 steps to complete.
+[10/28/2026-09:51:18] [TRT] [I] [BlockAssignment] Algorithm ShiftNTopDown took 22.82ms to assign 12 blocks to 184 nodes requiring 19047424 bytes.
+[10/28/2026-09:51:18] [TRT] [I] Total Activation Memory: 19046400 bytes
+[10/28/2026-09:51:18] [TRT] [I] Total Weights Memory: 19068676 bytes
+[10/28/2026-09:51:18] [TRT] [I] Compiler backend is used during engine execution.
+[10/28/2026-09:51:18] [TRT] [I] Engine generation completed in 523.825 seconds.
+[10/28/2026-09:51:18] [TRT] [I] [MemUsageStats] Peak memory usage of TRT CPU/GPU memory allocators: CPU 2 MiB, GPU 100 MiB
+[34m[1mTensorRT:[0m export success ✅ 534.2s, saved as 'models/yolo26s.engine' (21.6 MB)
+
+Export complete (536.2s)
+Results saved to [1m/workspace/landing-project/models/yolo26s.engine[0m
+Predict:         yolo predict task=detect model=models/yolo26s.engine imgsz=640 quantize=16
+Validate:        yolo val task=detect model=models/yolo26s.engine imgsz=640  quantize=16
+Visualize:       https://netron.app
+Loading /workspace/landing-project/engines/yolo26s_fp16.engine for TensorRT inference...
+[10/28/2026-09:51:19] [TRT] [I] Loaded engine size: 21 MiB
+[10/28/2026-09:51:19] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +18, now: CPU 0, GPU 36 (MiB)
+OK: yolo26s_fp16.engine, inferentie 9.4 ms (107 FPS, enkel het model)
+
+Samenvatting: /workspace/landing-project/results/engines/summary.csv
+Versies: {'jetpack': '# R36 (release), REVISION: 4.7, GCID: 42132812, BOARD: generic, EABI: aarch64, DATE: Thu Sep 18 22:54:44 UTC 2025', 'tensorrt': '10.7.0', 'ultralytics': '8.4.182', 'torch': '2.10.0', 'power_mode': 'NV Power Mode: 15W'}
+
+=== yolo26s INT8 === (geheugen vrij 3268 MB, beschikbaar 4613 MB)
+WARNING ⚠️ 'int8' is deprecated and will be removed in the future. Use 'quantize' instead.
+Ultralytics 8.4.182 🚀 Python-3.10.12 torch-2.10.0 CUDA:0 (Orin, 7620MiB)
+YOLO26s summary (fused): 120 layers, 9,465,567 parameters, 0 gradients, 20.8 GFLOPs
+
+[34m[1mPyTorch:[0m starting from 'models/yolo26s.pt' with input shape (1, 3, 640, 640) BCHW and output shape(s) (1, 5, 8400) (19.4 MB)
+
+[34m[1mONNX:[0m starting export with onnx 1.22.0 opset 18...
+[34m[1mONNX:[0m slimming with onnxslim 0.1.98...
+[34m[1mONNX:[0m export success ✅ 7.1s, saved as 'models/yolo26s.onnx' (36.4 MB)
+[34m[1mTensorRT:[0m collecting INT8 calibration images from 'data=/workspace/landing-project/results/engines/local_calib.yaml'
+[KDownloading https://ultralytics.com/assets/Arial.ttf to '/tmp/ultralytics/Ultralytics/Arial.ttf': 93% ━━━━━━━━━━━─ 704.0/755.1KB 6.8MB/s 0.1s<0.0s[KDownloading https://ultralytics.com/assets/Arial.ttf to '/tmp/ultralytics/Ultralytics/Arial.ttf': 100% ━━━━━━━━━━━━ 755.1KB 7.1MB/s 0.1s
+WARNING ⚠️ [34m[1mval: [0mSlow image access detected (ping: 0.0±0.0 ms, read: 24.5±6.8 MB/s, size: 18.0 KB). Use local storage instead of remote/mounted storage for better performance. See https://docs.ultralytics.com/guides/model-training-tips
+[K[34m[1mval: [0mScanning /workspace/landing-project/data/landingpad/labels/calib... 90 images, 10 backgrounds, 0 corrupt: 30% ━━━╸──────── 90/300 268.9it/s 0.1s<0.8s[K[34m[1mval: [0mScanning /workspace/landing-project/data/landingpad/labels/calib... 206 images, 22 backgrounds, 0 corrupt: 68% ━━━━━━━━──── 206/300 531.3it/s 0.2s<0.2s[K[34m[1mval: [0mScanning /workspace/landing-project/data/landingpad/labels/calib... 300 images, 30 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 300/300 1.1Kit/s 0.3s
+[34m[1mval: [0mNew cache created: /workspace/landing-project/data/landingpad/labels/calib.cache
+
+[34m[1mTensorRT:[0m starting export with TensorRT 10.7.0...
+[10/28/2026-09:51:46] [TRT] [I] [MemUsageChange] Init CUDA: CPU -1, GPU +0, now: CPU 938, GPU 3727 (MiB)
+[10/28/2026-09:51:48] [TRT] [I] [MemUsageChange] Init builder kernel library: CPU +818, GPU +830, now: CPU 1712, GPU 4560 (MiB)
+[10/28/2026-09:51:48] [TRT] [I] ----------------------------------------------------------------
+[10/28/2026-09:51:48] [TRT] [I] Input filename:   models/yolo26s.onnx
+[10/28/2026-09:51:48] [TRT] [I] ONNX IR version:  0.0.8
+[10/28/2026-09:51:48] [TRT] [I] Opset version:    18
+[10/28/2026-09:51:48] [TRT] [I] Producer name:    pytorch
+[10/28/2026-09:51:48] [TRT] [I] Producer version: 2.10.0
+[10/28/2026-09:51:48] [TRT] [I] Domain:           
+[10/28/2026-09:51:48] [TRT] [I] Model version:    0
+[10/28/2026-09:51:48] [TRT] [I] Doc string:       
+[10/28/2026-09:51:48] [TRT] [I] ----------------------------------------------------------------
+[34m[1mTensorRT:[0m input "images" with shape(1, 3, 640, 640) DataType.FLOAT
+[34m[1mTensorRT:[0m output "output0" with shape(1, 5, 8400) DataType.FLOAT
+[34m[1mTensorRT:[0m building INT8 engine as models/yolo26s.engine
+[34m[1mTensorRT:[0m keeping 25 head layers out of INT8 for accuracy
+[10/28/2026-09:51:48] [TRT] [I] Perform graph optimization on calibration graph.
+[10/28/2026-09:51:49] [TRT] [I] Local timing cache in use. Profiling results in this builder pass will not be stored.
+[10/28/2026-09:51:49] [TRT] [I] Compiler backend is used during engine build.
+[10/28/2026-09:51:55] [TRT] [I] Detected 1 inputs and 3 output network tensors.
+[10/28/2026-09:51:58] [TRT] [I] Total Host Persistent Memory: 561408 bytes
+[10/28/2026-09:51:58] [TRT] [I] Total Device Persistent Memory: 798208 bytes
+[10/28/2026-09:51:58] [TRT] [I] Max Scratch Memory: 4608 bytes
+[10/28/2026-09:51:58] [TRT] [I] [BlockAssignment] Started assigning block shifts. This will take 416 steps to complete.
+[10/28/2026-09:51:58] [TRT] [I] [BlockAssignment] Algorithm ShiftNTopDown took 91.5927ms to assign 16 blocks to 416 nodes requiring 50550272 bytes.
+[10/28/2026-09:51:58] [TRT] [I] Total Activation Memory: 50550272 bytes
+[10/28/2026-09:51:59] [TRT] [I] Total Weights Memory: 44178944 bytes
+[10/28/2026-09:51:59] [TRT] [I] Compiler backend is used during engine execution.
+[10/28/2026-09:51:59] [TRT] [I] Engine generation completed in 10.0401 seconds.
+[10/28/2026-09:51:59] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +49, now: CPU 0, GPU 113 (MiB)
+[10/28/2026-09:51:59] [TRT] [I] Starting Calibration.
+[10/28/2026-09:51:59] [TRT] [I]   Calibrated batch 0 in 0.477274 seconds.
+[10/28/2026-09:52:00] [TRT] [I]   Calibrated batch 1 in 0.482226 seconds.
+[10/28/2026-09:52:00] [TRT] [I]   Calibrated batch 2 in 0.485673 seconds.
+[10/28/2026-09:52:01] [TRT] [I]   Calibrated batch 3 in 0.487649 seconds.
+[10/28/2026-09:52:01] [TRT] [I]   Calibrated batch 4 in 0.477753 seconds.
+[10/28/2026-09:52:02] [TRT] [I]   Calibrated batch 5 in 0.48988 seconds.
+[10/28/2026-09:52:02] [TRT] [I]   Calibrated batch 6 in 0.470133 seconds.
+[10/28/2026-09:52:03] [TRT] [I]   Calibrated batch 7 in 0.481463 seconds.
+[10/28/2026-09:52:03] [TRT] [I]   Calibrated batch 8 in 0.483698 seconds.
+[10/28/2026-09:52:04] [TRT] [I]   Calibrated batch 9 in 0.48548 seconds.
+[10/28/2026-09:52:04] [TRT] [I]   Calibrated batch 10 in 0.488337 seconds.
+[10/28/2026-09:52:05] [TRT] [I]   Calibrated batch 11 in 0.489395 seconds.
+[10/28/2026-09:52:05] [TRT] [I]   Calibrated batch 12 in 0.4911 seconds.
+[10/28/2026-09:52:06] [TRT] [I]   Calibrated batch 13 in 0.48721 seconds.
+[10/28/2026-09:52:06] [TRT] [I]   Calibrated batch 14 in 0.481214 seconds.
+[10/28/2026-09:52:07] [TRT] [I]   Calibrated batch 15 in 0.481842 seconds.
+[10/28/2026-09:52:07] [TRT] [I]   Calibrated batch 16 in 0.490308 seconds.
+[10/28/2026-09:52:08] [TRT] [I]   Calibrated batch 17 in 0.483618 seconds.
+[10/28/2026-09:52:08] [TRT] [I]   Calibrated batch 18 in 0.488301 seconds.
+[10/28/2026-09:52:09] [TRT] [I]   Calibrated batch 19 in 0.490753 seconds.
+[10/28/2026-09:52:09] [TRT] [I]   Calibrated batch 20 in 0.487847 seconds.
+[10/28/2026-09:52:10] [TRT] [I]   Calibrated batch 21 in 0.484176 seconds.
+[10/28/2026-09:52:10] [TRT] [I]   Calibrated batch 22 in 0.474633 seconds.
+[10/28/2026-09:52:11] [TRT] [I]   Calibrated batch 23 in 0.487748 seconds.
+[10/28/2026-09:52:11] [TRT] [I]   Calibrated batch 24 in 0.490193 seconds.
+[10/28/2026-09:52:12] [TRT] [I]   Calibrated batch 25 in 0.462382 seconds.
+[10/28/2026-09:52:12] [TRT] [I]   Calibrated batch 26 in 0.471392 seconds.
+[10/28/2026-09:52:13] [TRT] [I]   Calibrated batch 27 in 0.492148 seconds.
+[10/28/2026-09:52:13] [TRT] [I]   Calibrated batch 28 in 0.482656 seconds.
+[10/28/2026-09:52:14] [TRT] [I]   Calibrated batch 29 in 0.476436 seconds.
+[10/28/2026-09:52:14] [TRT] [I]   Calibrated batch 30 in 0.488616 seconds.
+[10/28/2026-09:52:15] [TRT] [I]   Calibrated batch 31 in 0.482952 seconds.
+[10/28/2026-09:52:15] [TRT] [I]   Calibrated batch 32 in 0.479092 seconds.
+[10/28/2026-09:52:16] [TRT] [I]   Calibrated batch 33 in 0.483168 seconds.
+[10/28/2026-09:52:16] [TRT] [I]   Calibrated batch 34 in 0.485569 seconds.
+[10/28/2026-09:52:17] [TRT] [I]   Calibrated batch 35 in 0.479665 seconds.
+[10/28/2026-09:52:17] [TRT] [I]   Calibrated batch 36 in 0.462136 seconds.
+[10/28/2026-09:52:17] [TRT] [I]   Calibrated batch 37 in 0.489172 seconds.
+[10/28/2026-09:52:18] [TRT] [I]   Calibrated batch 38 in 0.486048 seconds.
+[10/28/2026-09:52:18] [TRT] [I]   Calibrated batch 39 in 0.470156 seconds.
+[10/28/2026-09:52:19] [TRT] [I]   Calibrated batch 40 in 0.488888 seconds.
+[10/28/2026-09:52:19] [TRT] [I]   Calibrated batch 41 in 0.493382 seconds.
+[10/28/2026-09:52:20] [TRT] [I]   Calibrated batch 42 in 0.48823 seconds.
+[10/28/2026-09:52:20] [TRT] [I]   Calibrated batch 43 in 0.47918 seconds.
+[10/28/2026-09:52:21] [TRT] [I]   Calibrated batch 44 in 0.492821 seconds.
+[10/28/2026-09:52:21] [TRT] [I]   Calibrated batch 45 in 0.491765 seconds.
+[10/28/2026-09:52:22] [TRT] [I]   Calibrated batch 46 in 0.492826 seconds.
+[10/28/2026-09:52:22] [TRT] [I]   Calibrated batch 47 in 0.48015 seconds.
+[10/28/2026-09:52:23] [TRT] [I]   Calibrated batch 48 in 0.492582 seconds.
+[10/28/2026-09:52:23] [TRT] [I]   Calibrated batch 49 in 0.489955 seconds.
+[10/28/2026-09:52:24] [TRT] [I]   Calibrated batch 50 in 0.492484 seconds.
+[10/28/2026-09:52:24] [TRT] [I]   Calibrated batch 51 in 0.492599 seconds.
+[10/28/2026-09:52:25] [TRT] [I]   Calibrated batch 52 in 0.489816 seconds.
+[10/28/2026-09:52:25] [TRT] [I]   Calibrated batch 53 in 0.484075 seconds.
+[10/28/2026-09:52:26] [TRT] [I]   Calibrated batch 54 in 0.488945 seconds.
+[10/28/2026-09:52:26] [TRT] [I]   Calibrated batch 55 in 0.491276 seconds.
+[10/28/2026-09:52:27] [TRT] [I]   Calibrated batch 56 in 0.481178 seconds.
+[10/28/2026-09:52:27] [TRT] [I]   Calibrated batch 57 in 0.489959 seconds.
+[10/28/2026-09:52:28] [TRT] [I]   Calibrated batch 58 in 0.495985 seconds.
+[10/28/2026-09:52:28] [TRT] [I]   Calibrated batch 59 in 0.486331 seconds.
+[10/28/2026-09:52:29] [TRT] [I]   Calibrated batch 60 in 0.491388 seconds.
+[10/28/2026-09:52:29] [TRT] [I]   Calibrated batch 61 in 0.490463 seconds.
+[10/28/2026-09:52:30] [TRT] [I]   Calibrated batch 62 in 0.491497 seconds.
+[10/28/2026-09:52:31] [TRT] [I]   Calibrated batch 63 in 0.494347 seconds.
+[10/28/2026-09:52:31] [TRT] [I]   Calibrated batch 64 in 0.478764 seconds.
+[10/28/2026-09:52:32] [TRT] [I]   Calibrated batch 65 in 0.485467 seconds.
+[10/28/2026-09:52:32] [TRT] [I]   Calibrated batch 66 in 0.488419 seconds.
+[10/28/2026-09:52:33] [TRT] [I]   Calibrated batch 67 in 0.481078 seconds.
+[10/28/2026-09:52:33] [TRT] [I]   Calibrated batch 68 in 0.474523 seconds.
+[10/28/2026-09:52:34] [TRT] [I]   Calibrated batch 69 in 0.494892 seconds.
+[10/28/2026-09:52:34] [TRT] [I]   Calibrated batch 70 in 0.493337 seconds.
+[10/28/2026-09:52:35] [TRT] [I]   Calibrated batch 71 in 0.49157 seconds.
+[10/28/2026-09:52:35] [TRT] [I]   Calibrated batch 72 in 0.476446 seconds.
+[10/28/2026-09:52:36] [TRT] [I]   Calibrated batch 73 in 0.486355 seconds.
+[10/28/2026-09:52:36] [TRT] [I]   Calibrated batch 74 in 0.494139 seconds.
+[10/28/2026-09:52:37] [TRT] [I]   Calibrated batch 75 in 0.484556 seconds.
+[10/28/2026-09:52:37] [TRT] [I]   Calibrated batch 76 in 0.495189 seconds.
+[10/28/2026-09:52:38] [TRT] [I]   Calibrated batch 77 in 0.495712 seconds.
+[10/28/2026-09:52:38] [TRT] [I]   Calibrated batch 78 in 0.492512 seconds.
+[10/28/2026-09:52:39] [TRT] [I]   Calibrated batch 79 in 0.492629 seconds.
+[10/28/2026-09:52:39] [TRT] [I]   Calibrated batch 80 in 0.492279 seconds.
+[10/28/2026-09:52:40] [TRT] [I]   Calibrated batch 81 in 0.488431 seconds.
+[10/28/2026-09:52:40] [TRT] [I]   Calibrated batch 82 in 0.494328 seconds.
+[10/28/2026-09:52:41] [TRT] [I]   Calibrated batch 83 in 0.485796 seconds.
+[10/28/2026-09:52:41] [TRT] [I]   Calibrated batch 84 in 0.481972 seconds.
+[10/28/2026-09:52:42] [TRT] [I]   Calibrated batch 85 in 0.472237 seconds.
+[10/28/2026-09:52:42] [TRT] [I]   Calibrated batch 86 in 0.494783 seconds.
+[10/28/2026-09:52:43] [TRT] [I]   Calibrated batch 87 in 0.486204 seconds.
+[10/28/2026-09:52:43] [TRT] [I]   Calibrated batch 88 in 0.493383 seconds.
+[10/28/2026-09:52:44] [TRT] [I]   Calibrated batch 89 in 0.490757 seconds.
+[10/28/2026-09:52:44] [TRT] [I]   Calibrated batch 90 in 0.483963 seconds.
+[10/28/2026-09:52:45] [TRT] [I]   Calibrated batch 91 in 0.478764 seconds.
+[10/28/2026-09:52:45] [TRT] [I]   Calibrated batch 92 in 0.492441 seconds.
+[10/28/2026-09:52:46] [TRT] [I]   Calibrated batch 93 in 0.496552 seconds.
+[10/28/2026-09:52:46] [TRT] [I]   Calibrated batch 94 in 0.49157 seconds.
+[10/28/2026-09:52:47] [TRT] [I]   Calibrated batch 95 in 0.472429 seconds.
+[10/28/2026-09:52:47] [TRT] [I]   Calibrated batch 96 in 0.494687 seconds.
+[10/28/2026-09:52:48] [TRT] [I]   Calibrated batch 97 in 0.485597 seconds.
+[10/28/2026-09:52:48] [TRT] [I]   Calibrated batch 98 in 0.494083 seconds.
+[10/28/2026-09:52:49] [TRT] [I]   Calibrated batch 99 in 0.494441 seconds.
+[10/28/2026-09:52:49] [TRT] [I]   Calibrated batch 100 in 0.491388 seconds.
+[10/28/2026-09:52:50] [TRT] [I]   Calibrated batch 101 in 0.494387 seconds.
+[10/28/2026-09:52:50] [TRT] [I]   Calibrated batch 102 in 0.496228 seconds.
+[10/28/2026-09:52:51] [TRT] [I]   Calibrated batch 103 in 0.494641 seconds.
+[10/28/2026-09:52:51] [TRT] [I]   Calibrated batch 104 in 0.495224 seconds.
+[10/28/2026-09:52:52] [TRT] [I]   Calibrated batch 105 in 0.488122 seconds.
+[10/28/2026-09:52:52] [TRT] [I]   Calibrated batch 106 in 0.481185 seconds.
+[10/28/2026-09:52:53] [TRT] [I]   Calibrated batch 107 in 0.493594 seconds.
+[10/28/2026-09:52:53] [TRT] [I]   Calibrated batch 108 in 0.482914 seconds.
+[10/28/2026-09:52:54] [TRT] [I]   Calibrated batch 109 in 0.475292 seconds.
+[10/28/2026-09:52:54] [TRT] [I]   Calibrated batch 110 in 0.482367 seconds.
+[10/28/2026-09:52:55] [TRT] [I]   Calibrated batch 111 in 0.494926 seconds.
+[10/28/2026-09:52:55] [TRT] [I]   Calibrated batch 112 in 0.488438 seconds.
+[10/28/2026-09:52:56] [TRT] [I]   Calibrated batch 113 in 0.488288 seconds.
+[10/28/2026-09:52:56] [TRT] [I]   Calibrated batch 114 in 0.480677 seconds.
+[10/28/2026-09:52:57] [TRT] [I]   Calibrated batch 115 in 0.494303 seconds.
+[10/28/2026-09:52:57] [TRT] [I]   Calibrated batch 116 in 0.476515 seconds.
+[10/28/2026-09:52:58] [TRT] [I]   Calibrated batch 117 in 0.488928 seconds.
+[10/28/2026-09:52:58] [TRT] [I]   Calibrated batch 118 in 0.491244 seconds.
+[10/28/2026-09:52:59] [TRT] [I]   Calibrated batch 119 in 0.497735 seconds.
+[10/28/2026-09:52:59] [TRT] [I]   Calibrated batch 120 in 0.484297 seconds.
+[10/28/2026-09:53:00] [TRT] [I]   Calibrated batch 121 in 0.479595 seconds.
+[10/28/2026-09:53:00] [TRT] [I]   Calibrated batch 122 in 0.495254 seconds.
+[10/28/2026-09:53:01] [TRT] [I]   Calibrated batch 123 in 0.49196 seconds.
+[10/28/2026-09:53:01] [TRT] [I]   Calibrated batch 124 in 0.493279 seconds.
+[10/28/2026-09:53:02] [TRT] [I]   Calibrated batch 125 in 0.497063 seconds.
+[10/28/2026-09:53:02] [TRT] [I]   Calibrated batch 126 in 0.495044 seconds.
+[10/28/2026-09:53:03] [TRT] [I]   Calibrated batch 127 in 0.49444 seconds.
+[10/28/2026-09:53:03] [TRT] [I]   Calibrated batch 128 in 0.495188 seconds.
+[10/28/2026-09:53:04] [TRT] [I]   Calibrated batch 129 in 0.498769 seconds.
+[10/28/2026-09:53:04] [TRT] [I]   Calibrated batch 130 in 0.495729 seconds.
+[10/28/2026-09:53:05] [TRT] [I]   Calibrated batch 131 in 0.480388 seconds.
+[10/28/2026-09:53:05] [TRT] [I]   Calibrated batch 132 in 0.484063 seconds.
+[10/28/2026-09:53:06] [TRT] [I]   Calibrated batch 133 in 0.484119 seconds.
+[10/28/2026-09:53:06] [TRT] [I]   Calibrated batch 134 in 0.490776 seconds.
+[10/28/2026-09:53:07] [TRT] [I]   Calibrated batch 135 in 0.483908 seconds.
+[10/28/2026-09:53:07] [TRT] [I]   Calibrated batch 136 in 0.498747 seconds.
+[10/28/2026-09:53:08] [TRT] [I]   Calibrated batch 137 in 0.494399 seconds.
+[10/28/2026-09:53:08] [TRT] [I]   Calibrated batch 138 in 0.476231 seconds.
+[10/28/2026-09:53:09] [TRT] [I]   Calibrated batch 139 in 0.480139 seconds.
+[10/28/2026-09:53:09] [TRT] [I]   Calibrated batch 140 in 0.478537 seconds.
+[10/28/2026-09:53:10] [TRT] [I]   Calibrated batch 141 in 0.49255 seconds.
+[10/28/2026-09:53:10] [TRT] [I]   Calibrated batch 142 in 0.495237 seconds.
+[10/28/2026-09:53:11] [TRT] [I]   Calibrated batch 143 in 0.489296 seconds.
+[10/28/2026-09:53:11] [TRT] [I]   Calibrated batch 144 in 0.468827 seconds.
+[10/28/2026-09:53:12] [TRT] [I]   Calibrated batch 145 in 0.489148 seconds.
+[10/28/2026-09:53:12] [TRT] [I]   Calibrated batch 146 in 0.494212 seconds.
+[10/28/2026-09:53:13] [TRT] [I]   Calibrated batch 147 in 0.494675 seconds.
+[10/28/2026-09:53:13] [TRT] [I]   Calibrated batch 148 in 0.49597 seconds.
+[10/28/2026-09:53:14] [TRT] [I]   Calibrated batch 149 in 0.491644 seconds.
+[10/28/2026-09:53:14] [TRT] [I]   Calibrated batch 150 in 0.471577 seconds.
+[10/28/2026-09:53:15] [TRT] [I]   Calibrated batch 151 in 0.48151 seconds.
+[10/28/2026-09:53:15] [TRT] [I]   Calibrated batch 152 in 0.493578 seconds.
+[10/28/2026-09:53:16] [TRT] [I]   Calibrated batch 153 in 0.485821 seconds.
+[10/28/2026-09:53:16] [TRT] [I]   Calibrated batch 154 in 0.494844 seconds.
+[10/28/2026-09:53:17] [TRT] [I]   Calibrated batch 155 in 0.494037 seconds.
+[10/28/2026-09:53:17] [TRT] [I]   Calibrated batch 156 in 0.496985 seconds.
+[10/28/2026-09:53:18] [TRT] [I]   Calibrated batch 157 in 0.493528 seconds.
+[10/28/2026-09:53:18] [TRT] [I]   Calibrated batch 158 in 0.492861 seconds.
+[10/28/2026-09:53:19] [TRT] [I]   Calibrated batch 159 in 0.488591 seconds.
+[10/28/2026-09:53:19] [TRT] [I]   Calibrated batch 160 in 0.494704 seconds.
+[10/28/2026-09:53:20] [TRT] [I]   Calibrated batch 161 in 0.496087 seconds.
+[10/28/2026-09:53:20] [TRT] [I]   Calibrated batch 162 in 0.500849 seconds.
+[10/28/2026-09:53:21] [TRT] [I]   Calibrated batch 163 in 0.475904 seconds.
+[10/28/2026-09:53:21] [TRT] [I]   Calibrated batch 164 in 0.488846 seconds.
+[10/28/2026-09:53:22] [TRT] [I]   Calibrated batch 165 in 0.488508 seconds.
+[10/28/2026-09:53:22] [TRT] [I]   Calibrated batch 166 in 0.497993 seconds.
+[10/28/2026-09:53:23] [TRT] [I]   Calibrated batch 167 in 0.494949 seconds.
+[10/28/2026-09:53:23] [TRT] [I]   Calibrated batch 168 in 0.496583 seconds.
+[10/28/2026-09:53:24] [TRT] [I]   Calibrated batch 169 in 0.484313 seconds.
+[10/28/2026-09:53:24] [TRT] [I]   Calibrated batch 170 in 0.488537 seconds.
+[10/28/2026-09:53:25] [TRT] [I]   Calibrated batch 171 in 0.496332 seconds.
+[10/28/2026-09:53:25] [TRT] [I]   Calibrated batch 172 in 0.487309 seconds.
+[10/28/2026-09:53:26] [TRT] [I]   Calibrated batch 173 in 0.485397 seconds.
+[10/28/2026-09:53:26] [TRT] [I]   Calibrated batch 174 in 0.49806 seconds.
+[10/28/2026-09:53:27] [TRT] [I]   Calibrated batch 175 in 0.494609 seconds.
+[10/28/2026-09:53:27] [TRT] [I]   Calibrated batch 176 in 0.493996 seconds.
+[10/28/2026-09:53:28] [TRT] [I]   Calibrated batch 177 in 0.483232 seconds.
+[10/28/2026-09:53:28] [TRT] [I]   Calibrated batch 178 in 0.48287 seconds.
+[10/28/2026-09:53:29] [TRT] [I]   Calibrated batch 179 in 0.497681 seconds.
+[10/28/2026-09:53:29] [TRT] [I]   Calibrated batch 180 in 0.489205 seconds.
+[10/28/2026-09:53:30] [TRT] [I]   Calibrated batch 181 in 0.488919 seconds.
+[10/28/2026-09:53:30] [TRT] [I]   Calibrated batch 182 in 0.493569 seconds.
+[10/28/2026-09:53:31] [TRT] [I]   Calibrated batch 183 in 0.495073 seconds.
+[10/28/2026-09:53:31] [TRT] [I]   Calibrated batch 184 in 0.496598 seconds.
+[10/28/2026-09:53:32] [TRT] [I]   Calibrated batch 185 in 0.497894 seconds.
+[10/28/2026-09:53:32] [TRT] [I]   Calibrated batch 186 in 0.495638 seconds.
+[10/28/2026-09:53:33] [TRT] [I]   Calibrated batch 187 in 0.489833 seconds.
+[10/28/2026-09:53:33] [TRT] [I]   Calibrated batch 188 in 0.496041 seconds.
+[10/28/2026-09:53:34] [TRT] [I]   Calibrated batch 189 in 0.494884 seconds.
+[10/28/2026-09:53:34] [TRT] [I]   Calibrated batch 190 in 0.472561 seconds.
+[10/28/2026-09:53:35] [TRT] [I]   Calibrated batch 191 in 0.492399 seconds.
+[10/28/2026-09:53:35] [TRT] [I]   Calibrated batch 192 in 0.494312 seconds.
+[10/28/2026-09:53:36] [TRT] [I]   Calibrated batch 193 in 0.48808 seconds.
+[10/28/2026-09:53:36] [TRT] [I]   Calibrated batch 194 in 0.492608 seconds.
+[10/28/2026-09:53:37] [TRT] [I]   Calibrated batch 195 in 0.479039 seconds.
+[10/28/2026-09:53:37] [TRT] [I]   Calibrated batch 196 in 0.495418 seconds.
+[10/28/2026-09:53:38] [TRT] [I]   Calibrated batch 197 in 0.491799 seconds.
+[10/28/2026-09:53:38] [TRT] [I]   Calibrated batch 198 in 0.485742 seconds.
+[10/28/2026-09:53:39] [TRT] [I]   Calibrated batch 199 in 0.495038 seconds.
+[10/28/2026-09:53:39] [TRT] [I]   Calibrated batch 200 in 0.478657 seconds.
+[10/28/2026-09:53:40] [TRT] [I]   Calibrated batch 201 in 0.494038 seconds.
+[10/28/2026-09:53:40] [TRT] [I]   Calibrated batch 202 in 0.487252 seconds.
+[10/28/2026-09:53:41] [TRT] [I]   Calibrated batch 203 in 0.488464 seconds.
+[10/28/2026-09:53:41] [TRT] [I]   Calibrated batch 204 in 0.493783 seconds.
+[10/28/2026-09:53:42] [TRT] [I]   Calibrated batch 205 in 0.484542 seconds.
+[10/28/2026-09:53:42] [TRT] [I]   Calibrated batch 206 in 0.491827 seconds.
+[10/28/2026-09:53:43] [TRT] [I]   Calibrated batch 207 in 0.494286 seconds.
+[10/28/2026-09:53:43] [TRT] [I]   Calibrated batch 208 in 0.499738 seconds.
+[10/28/2026-09:53:44] [TRT] [I]   Calibrated batch 209 in 0.487063 seconds.
+[10/28/2026-09:53:44] [TRT] [I]   Calibrated batch 210 in 0.484818 seconds.
+[10/28/2026-09:53:45] [TRT] [I]   Calibrated batch 211 in 0.480367 seconds.
+[10/28/2026-09:53:45] [TRT] [I]   Calibrated batch 212 in 0.468053 seconds.
+[10/28/2026-09:53:46] [TRT] [I]   Calibrated batch 213 in 0.493372 seconds.
+[10/28/2026-09:53:46] [TRT] [I]   Calibrated batch 214 in 0.492478 seconds.
+[10/28/2026-09:53:47] [TRT] [I]   Calibrated batch 215 in 0.496424 seconds.
+[10/28/2026-09:53:47] [TRT] [I]   Calibrated batch 216 in 0.489515 seconds.
+[10/28/2026-09:53:48] [TRT] [I]   Calibrated batch 217 in 0.4926 seconds.
+[10/28/2026-09:53:48] [TRT] [I]   Calibrated batch 218 in 0.477535 seconds.
+[10/28/2026-09:53:49] [TRT] [I]   Calibrated batch 219 in 0.491646 seconds.
+[10/28/2026-09:53:49] [TRT] [I]   Calibrated batch 220 in 0.496069 seconds.
+[10/28/2026-09:53:50] [TRT] [I]   Calibrated batch 221 in 0.487187 seconds.
+[10/28/2026-09:53:50] [TRT] [I]   Calibrated batch 222 in 0.497024 seconds.
+[10/28/2026-09:53:51] [TRT] [I]   Calibrated batch 223 in 0.494434 seconds.
+[10/28/2026-09:53:51] [TRT] [I]   Calibrated batch 224 in 0.48851 seconds.
+[10/28/2026-09:53:52] [TRT] [I]   Calibrated batch 225 in 0.501768 seconds.
+[10/28/2026-09:53:52] [TRT] [I]   Calibrated batch 226 in 0.497086 seconds.
+[10/28/2026-09:53:53] [TRT] [I]   Calibrated batch 227 in 0.495654 seconds.
+[10/28/2026-09:53:53] [TRT] [I]   Calibrated batch 228 in 0.487144 seconds.
+[10/28/2026-09:53:54] [TRT] [I]   Calibrated batch 229 in 0.480691 seconds.
+[10/28/2026-09:53:54] [TRT] [I]   Calibrated batch 230 in 0.496613 seconds.
+[10/28/2026-09:53:55] [TRT] [I]   Calibrated batch 231 in 0.495919 seconds.
+[10/28/2026-09:53:55] [TRT] [I]   Calibrated batch 232 in 0.483044 seconds.
+[10/28/2026-09:53:56] [TRT] [I]   Calibrated batch 233 in 0.485151 seconds.
+[10/28/2026-09:53:56] [TRT] [I]   Calibrated batch 234 in 0.482693 seconds.
+[10/28/2026-09:53:57] [TRT] [I]   Calibrated batch 235 in 0.494778 seconds.
+[10/28/2026-09:53:57] [TRT] [I]   Calibrated batch 236 in 0.492082 seconds.
+[10/28/2026-09:53:58] [TRT] [I]   Calibrated batch 237 in 0.495899 seconds.
+[10/28/2026-09:53:58] [TRT] [I]   Calibrated batch 238 in 0.495773 seconds.
+[10/28/2026-09:53:59] [TRT] [I]   Calibrated batch 239 in 0.489843 seconds.
+[10/28/2026-09:53:59] [TRT] [I]   Calibrated batch 240 in 0.495432 seconds.
+[10/28/2026-09:54:00] [TRT] [I]   Calibrated batch 241 in 0.495722 seconds.
+[10/28/2026-09:54:00] [TRT] [I]   Calibrated batch 242 in 0.4978 seconds.
+[10/28/2026-09:54:01] [TRT] [I]   Calibrated batch 243 in 0.481673 seconds.
+[10/28/2026-09:54:01] [TRT] [I]   Calibrated batch 244 in 0.493263 seconds.
+[10/28/2026-09:54:02] [TRT] [I]   Calibrated batch 245 in 0.502754 seconds.
+[10/28/2026-09:54:02] [TRT] [I]   Calibrated batch 246 in 0.495869 seconds.
+[10/28/2026-09:54:03] [TRT] [I]   Calibrated batch 247 in 0.495878 seconds.
+[10/28/2026-09:54:03] [TRT] [I]   Calibrated batch 248 in 0.494689 seconds.
+[10/28/2026-09:54:04] [TRT] [I]   Calibrated batch 249 in 0.487257 seconds.
+[10/28/2026-09:54:04] [TRT] [I]   Calibrated batch 250 in 0.500836 seconds.
+[10/28/2026-09:54:05] [TRT] [I]   Calibrated batch 251 in 0.493419 seconds.
+[10/28/2026-09:54:05] [TRT] [I]   Calibrated batch 252 in 0.486934 seconds.
+[10/28/2026-09:54:06] [TRT] [I]   Calibrated batch 253 in 0.493902 seconds.
+[10/28/2026-09:54:06] [TRT] [I]   Calibrated batch 254 in 0.486118 seconds.
+[10/28/2026-09:54:07] [TRT] [I]   Calibrated batch 255 in 0.483784 seconds.
+[10/28/2026-09:54:07] [TRT] [I]   Calibrated batch 256 in 0.496112 seconds.
+[10/28/2026-09:54:08] [TRT] [I]   Calibrated batch 257 in 0.490928 seconds.
+[10/28/2026-09:54:08] [TRT] [I]   Calibrated batch 258 in 0.492044 seconds.
+[10/28/2026-09:54:09] [TRT] [I]   Calibrated batch 259 in 0.501111 seconds.
+[10/28/2026-09:54:10] [TRT] [I]   Calibrated batch 260 in 0.485754 seconds.
+[10/28/2026-09:54:10] [TRT] [I]   Calibrated batch 261 in 0.494367 seconds.
+[10/28/2026-09:54:11] [TRT] [I]   Calibrated batch 262 in 0.483011 seconds.
+[10/28/2026-09:54:11] [TRT] [I]   Calibrated batch 263 in 0.485045 seconds.
+[10/28/2026-09:54:12] [TRT] [I]   Calibrated batch 264 in 0.496318 seconds.
+[10/28/2026-09:54:12] [TRT] [I]   Calibrated batch 265 in 0.49823 seconds.
+[10/28/2026-09:54:13] [TRT] [I]   Calibrated batch 266 in 0.497265 seconds.
+[10/28/2026-09:54:13] [TRT] [I]   Calibrated batch 267 in 0.494956 seconds.
+[10/28/2026-09:54:14] [TRT] [I]   Calibrated batch 268 in 0.487756 seconds.
+[10/28/2026-09:54:14] [TRT] [I]   Calibrated batch 269 in 0.492943 seconds.
+[10/28/2026-09:54:15] [TRT] [I]   Calibrated batch 270 in 0.493851 seconds.
+[10/28/2026-09:54:15] [TRT] [I]   Calibrated batch 271 in 0.481774 seconds.
+[10/28/2026-09:54:16] [TRT] [I]   Calibrated batch 272 in 0.496927 seconds.
+[10/28/2026-09:54:16] [TRT] [I]   Calibrated batch 273 in 0.477613 seconds.
+[10/28/2026-09:54:17] [TRT] [I]   Calibrated batch 274 in 0.492452 seconds.
+[10/28/2026-09:54:17] [TRT] [I]   Calibrated batch 275 in 0.495765 seconds.
+[10/28/2026-09:54:18] [TRT] [I]   Calibrated batch 276 in 0.493523 seconds.
+[10/28/2026-09:54:18] [TRT] [I]   Calibrated batch 277 in 0.492721 seconds.
+[10/28/2026-09:54:19] [TRT] [I]   Calibrated batch 278 in 0.496926 seconds.
+[10/28/2026-09:54:19] [TRT] [I]   Calibrated batch 279 in 0.492417 seconds.
+[10/28/2026-09:54:20] [TRT] [I]   Calibrated batch 280 in 0.4935 seconds.
+[10/28/2026-09:54:20] [TRT] [I]   Calibrated batch 281 in 0.496551 seconds.
+[10/28/2026-09:54:21] [TRT] [I]   Calibrated batch 282 in 0.49389 seconds.
+[10/28/2026-09:54:21] [TRT] [I]   Calibrated batch 283 in 0.49537 seconds.
+[10/28/2026-09:54:22] [TRT] [I]   Calibrated batch 284 in 0.494185 seconds.
+[10/28/2026-09:54:22] [TRT] [I]   Calibrated batch 285 in 0.494701 seconds.
+[10/28/2026-09:54:23] [TRT] [I]   Calibrated batch 286 in 0.497418 seconds.
+[10/28/2026-09:54:23] [TRT] [I]   Calibrated batch 287 in 0.496938 seconds.
+[10/28/2026-09:54:24] [TRT] [I]   Calibrated batch 288 in 0.490144 seconds.
+[10/28/2026-09:54:24] [TRT] [I]   Calibrated batch 289 in 0.484037 seconds.
+[10/28/2026-09:54:25] [TRT] [I]   Calibrated batch 290 in 0.499543 seconds.
+[10/28/2026-09:54:25] [TRT] [I]   Calibrated batch 291 in 0.481717 seconds.
+[10/28/2026-09:54:26] [TRT] [I]   Calibrated batch 292 in 0.492227 seconds.
+[10/28/2026-09:54:26] [TRT] [I]   Calibrated batch 293 in 0.491969 seconds.
+[10/28/2026-09:54:27] [TRT] [I]   Calibrated batch 294 in 0.502738 seconds.
+[10/28/2026-09:54:27] [TRT] [I]   Calibrated batch 295 in 0.499237 seconds.
+[10/28/2026-09:54:28] [TRT] [I]   Calibrated batch 296 in 0.486145 seconds.
+[10/28/2026-09:54:28] [TRT] [I]   Calibrated batch 297 in 0.488275 seconds.
+[10/28/2026-09:54:29] [TRT] [I]   Calibrated batch 298 in 0.490383 seconds.
+[10/28/2026-09:54:29] [TRT] [I]   Calibrated batch 299 in 0.494629 seconds.
+[10/28/2026-09:54:29] [TRT] [I]   Post Processing Calibration data in 0.00582938 seconds.
+[10/28/2026-09:54:29] [TRT] [I] Calibration completed in 160.693 seconds.
+[10/28/2026-09:54:29] [TRT] [I] Writing Calibration Cache for calibrator: TRT-100700-MinMaxCalibration
+[10/28/2026-09:54:29] [TRT] [I] Local timing cache in use. Profiling results in this builder pass will not be stored.
+[10/28/2026-10:04:35] [TRT] [I] Detected 1 inputs and 3 output network tensors.
+[10/28/2026-10:05:34] [TRT] [I] Total Host Persistent Memory: 584432 bytes
+[10/28/2026-10:05:34] [TRT] [I] Total Device Persistent Memory: 0 bytes
+[10/28/2026-10:05:34] [TRT] [I] Max Scratch Memory: 0 bytes
+[10/28/2026-10:05:34] [TRT] [I] [BlockAssignment] Started assigning block shifts. This will take 168 steps to complete.
+[10/28/2026-10:05:34] [TRT] [I] [BlockAssignment] Algorithm ShiftNTopDown took 24.6941ms to assign 10 blocks to 168 nodes requiring 9216512 bytes.
+[10/28/2026-10:05:34] [TRT] [I] Total Activation Memory: 9216000 bytes
+[10/28/2026-10:05:34] [TRT] [I] Total Weights Memory: 9842180 bytes
+[10/28/2026-10:05:34] [TRT] [I] Engine generation completed in 664.814 seconds.
+[10/28/2026-10:05:34] [TRT] [I] [MemUsageStats] Peak memory usage of TRT CPU/GPU memory allocators: CPU 19 MiB, GPU 113 MiB
+[34m[1mTensorRT:[0m export success ✅ 839.0s, saved as 'models/yolo26s.engine' (12.6 MB)
+
+Export complete (840.9s)
+Results saved to [1m/workspace/landing-project/models/yolo26s.engine[0m
+Predict:         yolo predict task=detect model=models/yolo26s.engine imgsz=640 
+Validate:        yolo val task=detect model=models/yolo26s.engine imgsz=640  
+Visualize:       https://netron.app
+Loading /workspace/landing-project/engines/yolo26s_int8.engine for TensorRT inference...
+[10/28/2026-10:05:35] [TRT] [I] Loaded engine size: 12 MiB
+[10/28/2026-10:05:36] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +9, now: CPU 0, GPU 18 (MiB)
+OK: yolo26s_int8.engine, inferentie 6.8 ms (148 FPS, enkel het model)
+
+Samenvatting: /workspace/landing-project/results/engines/summary.csv

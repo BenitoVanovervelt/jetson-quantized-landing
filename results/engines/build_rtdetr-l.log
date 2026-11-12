@@ -1,0 +1,648 @@
+Versies: {'jetpack': '# R36 (release), REVISION: 4.7, GCID: 42132812, BOARD: generic, EABI: aarch64, DATE: Thu Sep 18 22:54:44 UTC 2025', 'tensorrt': '10.7.0', 'ultralytics': '8.4.182', 'torch': '2.10.0', 'power_mode': 'NV Power Mode: 15W'}
+
+=== rtdetr-l FP32 === (geheugen vrij 3363 MB, beschikbaar 4625 MB)
+Ultralytics 8.4.182 🚀 Python-3.10.12 torch-2.10.0 CUDA:0 (Orin, 7620MiB)
+rt-detr-l summary (fused): 315 layers, 31,985,795 parameters, 0 gradients, 105.3 GFLOPs
+
+[34m[1mPyTorch:[0m starting from 'models/rtdetr-l.pt' with input shape (1, 3, 640, 640) BCHW and output shape(s) (1, 300, 6) (63.2 MB)
+
+[34m[1mONNX:[0m starting export with onnx 1.22.0 opset 18...
+/usr/local/lib/python3.10/dist-packages/torch/onnx/_internal/torchscript_exporter/jit_utils.py:305: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /opt/pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_node_shape_type_inference(node, params_dict, opset_version)
+/usr/local/lib/python3.10/dist-packages/torch/onnx/_internal/torchscript_exporter/symbolic_opset11.py:954: UserWarning: Exporting aten::index operator of advanced indexing in opset 18 is achieved by combination of multiple ONNX operators, including Reshape, Transpose, Concat, and Gather. If indices include negative values, the exported graph will produce incorrect results.
+  return opset9.index(g, self, index)
+/usr/local/lib/python3.10/dist-packages/torch/onnx/_internal/torchscript_exporter/utils.py:714: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /opt/pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_graph_shape_type_inference(
+/usr/local/lib/python3.10/dist-packages/torch/onnx/_internal/torchscript_exporter/utils.py:1186: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /opt/pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_graph_shape_type_inference(
+[34m[1mONNX:[0m slimming with onnxslim 0.1.98...
+[34m[1mONNX:[0m export success ✅ 29.4s, saved as 'models/rtdetr-l.onnx' (125.4 MB)
+
+[34m[1mTensorRT:[0m starting export with TensorRT 10.7.0...
+[10/28/2026-10:06:23] [TRT] [I] [MemUsageChange] Init CUDA: CPU -2, GPU +0, now: CPU 2323, GPU 4733 (MiB)
+[10/28/2026-10:06:26] [TRT] [I] [MemUsageChange] Init builder kernel library: CPU +491, GPU +784, now: CPU 2771, GPU 5517 (MiB)
+[10/28/2026-10:06:27] [TRT] [I] ----------------------------------------------------------------
+[10/28/2026-10:06:27] [TRT] [I] Input filename:   models/rtdetr-l.onnx
+[10/28/2026-10:06:27] [TRT] [I] ONNX IR version:  0.0.8
+[10/28/2026-10:06:27] [TRT] [I] Opset version:    18
+[10/28/2026-10:06:27] [TRT] [I] Producer name:    pytorch
+[10/28/2026-10:06:27] [TRT] [I] Producer version: 2.10.0
+[10/28/2026-10:06:27] [TRT] [I] Domain:           
+[10/28/2026-10:06:27] [TRT] [I] Model version:    0
+[10/28/2026-10:06:27] [TRT] [I] Doc string:       
+[10/28/2026-10:06:27] [TRT] [I] ----------------------------------------------------------------
+[34m[1mTensorRT:[0m input "images" with shape(1, 3, 640, 640) DataType.FLOAT
+[34m[1mTensorRT:[0m output "output0" with shape(1, 300, 6) DataType.FLOAT
+[34m[1mTensorRT:[0m building FP32 engine as models/rtdetr-l.engine
+[10/28/2026-10:06:27] [TRT] [I] Local timing cache in use. Profiling results in this builder pass will not be stored.
+[10/28/2026-10:09:06] [TRT] [I] Compiler backend is used during engine build.
+[10/28/2026-10:11:30] [TRT] [I] Detected 1 inputs and 1 output network tensors.
+[10/28/2026-10:11:33] [TRT] [I] Total Host Persistent Memory: 606224 bytes
+[10/28/2026-10:11:33] [TRT] [I] Total Device Persistent Memory: 614912 bytes
+[10/28/2026-10:11:33] [TRT] [I] Max Scratch Memory: 77414400 bytes
+[10/28/2026-10:11:33] [TRT] [I] [BlockAssignment] Started assigning block shifts. This will take 167 steps to complete.
+[10/28/2026-10:11:33] [TRT] [I] [BlockAssignment] Algorithm ShiftNTopDown took 18.3253ms to assign 11 blocks to 167 nodes requiring 138037248 bytes.
+[10/28/2026-10:11:33] [TRT] [I] Total Activation Memory: 138035200 bytes
+[10/28/2026-10:11:33] [TRT] [I] Total Weights Memory: 128546112 bytes
+[10/28/2026-10:11:33] [TRT] [I] Compiler backend is used during engine execution.
+[10/28/2026-10:11:33] [TRT] [I] Engine generation completed in 305.887 seconds.
+[10/28/2026-10:11:33] [TRT] [I] [MemUsageStats] Peak memory usage of TRT CPU/GPU memory allocators: CPU 13 MiB, GPU 192 MiB
+[34m[1mTensorRT:[0m export success ✅ 339.7s, saved as 'models/rtdetr-l.engine' (125.2 MB)
+
+Export complete (342.3s)
+Results saved to [1m/workspace/landing-project/models/rtdetr-l.engine[0m
+Predict:         yolo predict task=detect model=models/rtdetr-l.engine imgsz=640 
+Validate:        yolo val task=detect model=models/rtdetr-l.engine imgsz=640  
+Visualize:       https://netron.app
+Loading /workspace/landing-project/engines/rtdetr-l_fp32.engine for TensorRT inference...
+[10/28/2026-10:11:34] [TRT] [I] Loaded engine size: 125 MiB
+[10/28/2026-10:11:34] [TRT] [I] [MS] Running engine with multi stream info
+[10/28/2026-10:11:34] [TRT] [I] [MS] Number of aux streams is 1
+[10/28/2026-10:11:34] [TRT] [I] [MS] Number of total worker streams is 2
+[10/28/2026-10:11:34] [TRT] [I] [MS] The main stream provided by execute/enqueue calls is the first worker stream
+[10/28/2026-10:11:34] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +132, now: CPU 0, GPU 255 (MiB)
+OK: rtdetr-l_fp32.engine, inferentie 65.0 ms (15 FPS, enkel het model)
+
+Samenvatting: /workspace/landing-project/results/engines/summary.csv
+Versies: {'jetpack': '# R36 (release), REVISION: 4.7, GCID: 42132812, BOARD: generic, EABI: aarch64, DATE: Thu Sep 18 22:54:44 UTC 2025', 'tensorrt': '10.7.0', 'ultralytics': '8.4.182', 'torch': '2.10.0', 'power_mode': 'NV Power Mode: 15W'}
+
+=== rtdetr-l FP16 === (geheugen vrij 3796 MB, beschikbaar 4635 MB)
+WARNING ⚠️ 'half' is deprecated and will be removed in the future. Use 'quantize' instead.
+Ultralytics 8.4.182 🚀 Python-3.10.12 torch-2.10.0 CUDA:0 (Orin, 7620MiB)
+rt-detr-l summary (fused): 315 layers, 31,985,795 parameters, 0 gradients, 105.3 GFLOPs
+
+[34m[1mPyTorch:[0m starting from 'models/rtdetr-l.pt' with input shape (1, 3, 640, 640) BCHW and output shape(s) (1, 300, 6) (63.2 MB)
+
+[34m[1mONNX:[0m starting export with onnx 1.22.0 opset 18...
+/usr/local/lib/python3.10/dist-packages/torch/onnx/_internal/torchscript_exporter/jit_utils.py:305: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /opt/pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_node_shape_type_inference(node, params_dict, opset_version)
+/usr/local/lib/python3.10/dist-packages/torch/onnx/_internal/torchscript_exporter/symbolic_opset11.py:954: UserWarning: Exporting aten::index operator of advanced indexing in opset 18 is achieved by combination of multiple ONNX operators, including Reshape, Transpose, Concat, and Gather. If indices include negative values, the exported graph will produce incorrect results.
+  return opset9.index(g, self, index)
+/usr/local/lib/python3.10/dist-packages/torch/onnx/_internal/torchscript_exporter/utils.py:714: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /opt/pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_graph_shape_type_inference(
+/usr/local/lib/python3.10/dist-packages/torch/onnx/_internal/torchscript_exporter/utils.py:1186: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /opt/pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_graph_shape_type_inference(
+[34m[1mONNX:[0m slimming with onnxslim 0.1.98...
+[34m[1mONNX:[0m export success ✅ 29.1s, saved as 'models/rtdetr-l.onnx' (125.4 MB)
+
+[34m[1mTensorRT:[0m starting export with TensorRT 10.7.0...
+[10/28/2026-10:12:35] [TRT] [I] [MemUsageChange] Init CUDA: CPU -1, GPU +0, now: CPU 2324, GPU 4886 (MiB)
+[10/28/2026-10:12:38] [TRT] [I] [MemUsageChange] Init builder kernel library: CPU +492, GPU +625, now: CPU 2772, GPU 5511 (MiB)
+[10/28/2026-10:12:38] [TRT] [I] ----------------------------------------------------------------
+[10/28/2026-10:12:38] [TRT] [I] Input filename:   models/rtdetr-l.onnx
+[10/28/2026-10:12:38] [TRT] [I] ONNX IR version:  0.0.8
+[10/28/2026-10:12:38] [TRT] [I] Opset version:    18
+[10/28/2026-10:12:38] [TRT] [I] Producer name:    pytorch
+[10/28/2026-10:12:38] [TRT] [I] Producer version: 2.10.0
+[10/28/2026-10:12:38] [TRT] [I] Domain:           
+[10/28/2026-10:12:38] [TRT] [I] Model version:    0
+[10/28/2026-10:12:38] [TRT] [I] Doc string:       
+[10/28/2026-10:12:38] [TRT] [I] ----------------------------------------------------------------
+[34m[1mTensorRT:[0m input "images" with shape(1, 3, 640, 640) DataType.FLOAT
+[34m[1mTensorRT:[0m output "output0" with shape(1, 300, 6) DataType.FLOAT
+[34m[1mTensorRT:[0m building FP16 engine as models/rtdetr-l.engine
+[10/28/2026-10:12:38] [TRT] [I] Local timing cache in use. Profiling results in this builder pass will not be stored.
+[10/28/2026-10:17:52] [TRT] [I] Compiler backend is used during engine build.
+[10/28/2026-10:24:03] [TRT] [I] Detected 1 inputs and 1 output network tensors.
+[10/28/2026-10:24:09] [TRT] [I] Total Host Persistent Memory: 671104 bytes
+[10/28/2026-10:24:09] [TRT] [I] Total Device Persistent Memory: 14336 bytes
+[10/28/2026-10:24:09] [TRT] [I] Max Scratch Memory: 47104000 bytes
+[10/28/2026-10:24:09] [TRT] [I] [BlockAssignment] Started assigning block shifts. This will take 119 steps to complete.
+[10/28/2026-10:24:09] [TRT] [I] [BlockAssignment] Algorithm ShiftNTopDown took 12.9174ms to assign 12 blocks to 119 nodes requiring 70904832 bytes.
+[10/28/2026-10:24:09] [TRT] [I] Total Activation Memory: 70902272 bytes
+[10/28/2026-10:24:09] [TRT] [I] Total Weights Memory: 64292640 bytes
+[10/28/2026-10:24:09] [TRT] [I] Compiler backend is used during engine execution.
+[10/28/2026-10:24:09] [TRT] [I] Engine generation completed in 690.53 seconds.
+[10/28/2026-10:24:09] [TRT] [I] [MemUsageStats] Peak memory usage of TRT CPU/GPU memory allocators: CPU 15 MiB, GPU 109 MiB
+[34m[1mTensorRT:[0m export success ✅ 723.7s, saved as 'models/rtdetr-l.engine' (64.4 MB)
+
+Export complete (726.5s)
+Results saved to [1m/workspace/landing-project/models/rtdetr-l.engine[0m
+Predict:         yolo predict task=detect model=models/rtdetr-l.engine imgsz=640 quantize=16
+Validate:        yolo val task=detect model=models/rtdetr-l.engine imgsz=640  quantize=16
+Visualize:       https://netron.app
+Loading /workspace/landing-project/engines/rtdetr-l_fp16.engine for TensorRT inference...
+[10/28/2026-10:24:10] [TRT] [I] Loaded engine size: 64 MiB
+[10/28/2026-10:24:10] [TRT] [I] [MS] Running engine with multi stream info
+[10/28/2026-10:24:10] [TRT] [I] [MS] Number of aux streams is 1
+[10/28/2026-10:24:10] [TRT] [I] [MS] Number of total worker streams is 2
+[10/28/2026-10:24:10] [TRT] [I] [MS] The main stream provided by execute/enqueue calls is the first worker stream
+[10/28/2026-10:24:10] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +67, now: CPU 0, GPU 128 (MiB)
+OK: rtdetr-l_fp16.engine, inferentie 36.1 ms (28 FPS, enkel het model)
+
+Samenvatting: /workspace/landing-project/results/engines/summary.csv
+Versies: {'jetpack': '# R36 (release), REVISION: 4.7, GCID: 42132812, BOARD: generic, EABI: aarch64, DATE: Thu Sep 18 22:54:44 UTC 2025', 'tensorrt': '10.7.0', 'ultralytics': '8.4.182', 'torch': '2.10.0', 'power_mode': 'NV Power Mode: 15W'}
+
+=== rtdetr-l INT8 === (geheugen vrij 4384 MB, beschikbaar 4997 MB)
+WARNING ⚠️ 'int8' is deprecated and will be removed in the future. Use 'quantize' instead.
+Ultralytics 8.4.182 🚀 Python-3.10.12 torch-2.10.0 CUDA:0 (Orin, 7620MiB)
+rt-detr-l summary (fused): 315 layers, 31,985,795 parameters, 0 gradients, 105.3 GFLOPs
+
+[34m[1mPyTorch:[0m starting from 'models/rtdetr-l.pt' with input shape (1, 3, 640, 640) BCHW and output shape(s) (1, 300, 6) (63.2 MB)
+
+[34m[1mONNX:[0m starting export with onnx 1.22.0 opset 18...
+/usr/local/lib/python3.10/dist-packages/torch/onnx/_internal/torchscript_exporter/jit_utils.py:305: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /opt/pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_node_shape_type_inference(node, params_dict, opset_version)
+/usr/local/lib/python3.10/dist-packages/torch/onnx/_internal/torchscript_exporter/symbolic_opset11.py:954: UserWarning: Exporting aten::index operator of advanced indexing in opset 18 is achieved by combination of multiple ONNX operators, including Reshape, Transpose, Concat, and Gather. If indices include negative values, the exported graph will produce incorrect results.
+  return opset9.index(g, self, index)
+/usr/local/lib/python3.10/dist-packages/torch/onnx/_internal/torchscript_exporter/utils.py:714: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /opt/pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_graph_shape_type_inference(
+/usr/local/lib/python3.10/dist-packages/torch/onnx/_internal/torchscript_exporter/utils.py:1186: UserWarning: Constant folding - Only steps=1 can be constant folded for opset >= 10 onnx::Slice op. Constant folding not applied. (Triggered internally at /opt/pytorch/torch/csrc/jit/passes/onnx/constant_fold.cpp:178.)
+  _C._jit_pass_onnx_graph_shape_type_inference(
+[34m[1mONNX:[0m slimming with onnxslim 0.1.98...
+[34m[1mONNX:[0m export success ✅ 30.2s, saved as 'models/rtdetr-l.onnx' (125.4 MB)
+[34m[1mTensorRT:[0m collecting INT8 calibration images from 'data=/workspace/landing-project/results/engines/local_calib.yaml'
+[34m[1mval: [0mFast image access ✅ (ping: 0.0±0.0 ms, read: 19.6±6.1 MB/s, size: 14.9 KB)
+[K[34m[1mval: [0mScanning /workspace/landing-project/data/landingpad/labels/calib.cache... 300 images, 30 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 300/300 26.2Mit/s 0.0s
+
+[34m[1mTensorRT:[0m starting export with TensorRT 10.7.0...
+[10/28/2026-10:25:09] [TRT] [I] [MemUsageChange] Init CUDA: CPU -2, GPU +0, now: CPU 2578, GPU 4586 (MiB)
+[10/28/2026-10:25:11] [TRT] [I] [MemUsageChange] Init builder kernel library: CPU -24, GPU +678, now: CPU 2511, GPU 5267 (MiB)
+[10/28/2026-10:25:12] [TRT] [I] ----------------------------------------------------------------
+[10/28/2026-10:25:12] [TRT] [I] Input filename:   models/rtdetr-l.onnx
+[10/28/2026-10:25:12] [TRT] [I] ONNX IR version:  0.0.8
+[10/28/2026-10:25:12] [TRT] [I] Opset version:    18
+[10/28/2026-10:25:12] [TRT] [I] Producer name:    pytorch
+[10/28/2026-10:25:12] [TRT] [I] Producer version: 2.10.0
+[10/28/2026-10:25:12] [TRT] [I] Domain:           
+[10/28/2026-10:25:12] [TRT] [I] Model version:    0
+[10/28/2026-10:25:12] [TRT] [I] Doc string:       
+[10/28/2026-10:25:12] [TRT] [I] ----------------------------------------------------------------
+[34m[1mTensorRT:[0m input "images" with shape(1, 3, 640, 640) DataType.FLOAT
+[34m[1mTensorRT:[0m output "output0" with shape(1, 300, 6) DataType.FLOAT
+[34m[1mTensorRT:[0m building INT8 engine as models/rtdetr-l.engine
+[34m[1mTensorRT:[0m keeping 8 head layers out of INT8 for accuracy
+[10/28/2026-10:25:12] [TRT] [I] Perform graph optimization on calibration graph.
+[10/28/2026-10:25:12] [TRT] [I] Local timing cache in use. Profiling results in this builder pass will not be stored.
+[10/28/2026-10:25:13] [TRT] [I] Compiler backend is used during engine build.
+[10/28/2026-10:25:27] [TRT] [I] Detected 1 inputs and 4 output network tensors.
+[10/28/2026-10:25:32] [TRT] [I] Total Host Persistent Memory: 1499568 bytes
+[10/28/2026-10:25:32] [TRT] [I] Total Device Persistent Memory: 1271808 bytes
+[10/28/2026-10:25:32] [TRT] [I] Max Scratch Memory: 153600 bytes
+[10/28/2026-10:25:32] [TRT] [I] [BlockAssignment] Started assigning block shifts. This will take 1257 steps to complete.
+[10/28/2026-10:25:33] [TRT] [I] [BlockAssignment] Algorithm ShiftNTopDown took 531.793ms to assign 20 blocks to 1257 nodes requiring 93680640 bytes.
+[10/28/2026-10:25:33] [TRT] [I] Total Activation Memory: 93680640 bytes
+[10/28/2026-10:25:33] [TRT] [I] Total Weights Memory: 152604944 bytes
+[10/28/2026-10:25:33] [TRT] [I] Compiler backend is used during engine execution.
+[10/28/2026-10:25:33] [TRT] [I] Engine generation completed in 21.1235 seconds.
+[10/28/2026-10:25:33] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +2, GPU +90, now: CPU 2, GPU 347 (MiB)
+[10/28/2026-10:25:33] [TRT] [I] Starting Calibration.
+[10/28/2026-10:25:36] [TRT] [I]   Calibrated batch 0 in 2.21537 seconds.
+[10/28/2026-10:25:38] [TRT] [I]   Calibrated batch 1 in 2.08777 seconds.
+[10/28/2026-10:25:40] [TRT] [I]   Calibrated batch 2 in 2.07574 seconds.
+[10/28/2026-10:25:42] [TRT] [I]   Calibrated batch 3 in 2.06517 seconds.
+[10/28/2026-10:25:44] [TRT] [I]   Calibrated batch 4 in 2.09855 seconds.
+[10/28/2026-10:25:46] [TRT] [I]   Calibrated batch 5 in 2.06538 seconds.
+[10/28/2026-10:25:48] [TRT] [I]   Calibrated batch 6 in 2.06142 seconds.
+[10/28/2026-10:25:50] [TRT] [I]   Calibrated batch 7 in 2.06051 seconds.
+[10/28/2026-10:25:52] [TRT] [I]   Calibrated batch 8 in 2.08598 seconds.
+[10/28/2026-10:25:55] [TRT] [I]   Calibrated batch 9 in 2.07344 seconds.
+[10/28/2026-10:25:57] [TRT] [I]   Calibrated batch 10 in 2.07045 seconds.
+[10/28/2026-10:25:59] [TRT] [I]   Calibrated batch 11 in 2.07313 seconds.
+[10/28/2026-10:26:01] [TRT] [I]   Calibrated batch 12 in 2.08476 seconds.
+[10/28/2026-10:26:03] [TRT] [I]   Calibrated batch 13 in 2.07521 seconds.
+[10/28/2026-10:26:05] [TRT] [I]   Calibrated batch 14 in 2.08798 seconds.
+[10/28/2026-10:26:07] [TRT] [I]   Calibrated batch 15 in 2.08816 seconds.
+[10/28/2026-10:26:09] [TRT] [I]   Calibrated batch 16 in 2.08686 seconds.
+[10/28/2026-10:26:11] [TRT] [I]   Calibrated batch 17 in 2.09894 seconds.
+[10/28/2026-10:26:13] [TRT] [I]   Calibrated batch 18 in 2.10449 seconds.
+[10/28/2026-10:26:16] [TRT] [I]   Calibrated batch 19 in 2.09748 seconds.
+[10/28/2026-10:26:18] [TRT] [I]   Calibrated batch 20 in 2.06752 seconds.
+[10/28/2026-10:26:20] [TRT] [I]   Calibrated batch 21 in 2.09794 seconds.
+[10/28/2026-10:26:22] [TRT] [I]   Calibrated batch 22 in 2.09156 seconds.
+[10/28/2026-10:26:24] [TRT] [I]   Calibrated batch 23 in 2.09759 seconds.
+[10/28/2026-10:26:26] [TRT] [I]   Calibrated batch 24 in 2.08748 seconds.
+[10/28/2026-10:26:28] [TRT] [I]   Calibrated batch 25 in 2.08276 seconds.
+[10/28/2026-10:26:30] [TRT] [I]   Calibrated batch 26 in 2.07913 seconds.
+[10/28/2026-10:26:32] [TRT] [I]   Calibrated batch 27 in 2.10118 seconds.
+[10/28/2026-10:26:34] [TRT] [I]   Calibrated batch 28 in 2.07936 seconds.
+[10/28/2026-10:26:37] [TRT] [I]   Calibrated batch 29 in 2.07219 seconds.
+[10/28/2026-10:26:39] [TRT] [I]   Calibrated batch 30 in 2.09516 seconds.
+[10/28/2026-10:26:41] [TRT] [I]   Calibrated batch 31 in 2.09274 seconds.
+[10/28/2026-10:26:43] [TRT] [I]   Calibrated batch 32 in 2.09972 seconds.
+[10/28/2026-10:26:45] [TRT] [I]   Calibrated batch 33 in 2.08311 seconds.
+[10/28/2026-10:26:47] [TRT] [I]   Calibrated batch 34 in 2.09773 seconds.
+[10/28/2026-10:26:49] [TRT] [I]   Calibrated batch 35 in 2.09473 seconds.
+[10/28/2026-10:26:51] [TRT] [I]   Calibrated batch 36 in 2.0978 seconds.
+[10/28/2026-10:26:53] [TRT] [I]   Calibrated batch 37 in 2.07905 seconds.
+[10/28/2026-10:26:56] [TRT] [I]   Calibrated batch 38 in 2.11052 seconds.
+[10/28/2026-10:26:58] [TRT] [I]   Calibrated batch 39 in 2.08683 seconds.
+[10/28/2026-10:27:00] [TRT] [I]   Calibrated batch 40 in 2.0538 seconds.
+[10/28/2026-10:27:02] [TRT] [I]   Calibrated batch 41 in 2.10098 seconds.
+[10/28/2026-10:27:04] [TRT] [I]   Calibrated batch 42 in 2.0775 seconds.
+[10/28/2026-10:27:06] [TRT] [I]   Calibrated batch 43 in 2.08042 seconds.
+[10/28/2026-10:27:08] [TRT] [I]   Calibrated batch 44 in 2.09193 seconds.
+[10/28/2026-10:27:10] [TRT] [I]   Calibrated batch 45 in 2.09962 seconds.
+[10/28/2026-10:27:12] [TRT] [I]   Calibrated batch 46 in 2.08726 seconds.
+[10/28/2026-10:27:15] [TRT] [I]   Calibrated batch 47 in 2.07801 seconds.
+[10/28/2026-10:27:17] [TRT] [I]   Calibrated batch 48 in 2.09661 seconds.
+[10/28/2026-10:27:19] [TRT] [I]   Calibrated batch 49 in 2.09267 seconds.
+[10/28/2026-10:27:21] [TRT] [I]   Calibrated batch 50 in 2.0842 seconds.
+[10/28/2026-10:27:23] [TRT] [I]   Calibrated batch 51 in 2.10044 seconds.
+[10/28/2026-10:27:25] [TRT] [I]   Calibrated batch 52 in 2.09989 seconds.
+[10/28/2026-10:27:27] [TRT] [I]   Calibrated batch 53 in 2.09508 seconds.
+[10/28/2026-10:27:29] [TRT] [I]   Calibrated batch 54 in 2.10135 seconds.
+[10/28/2026-10:27:31] [TRT] [I]   Calibrated batch 55 in 2.09313 seconds.
+[10/28/2026-10:27:34] [TRT] [I]   Calibrated batch 56 in 2.09625 seconds.
+[10/28/2026-10:27:36] [TRT] [I]   Calibrated batch 57 in 2.10009 seconds.
+[10/28/2026-10:27:38] [TRT] [I]   Calibrated batch 58 in 2.1651 seconds.
+[10/28/2026-10:27:40] [TRT] [I]   Calibrated batch 59 in 2.09893 seconds.
+[10/28/2026-10:27:42] [TRT] [I]   Calibrated batch 60 in 2.07892 seconds.
+[10/28/2026-10:27:44] [TRT] [I]   Calibrated batch 61 in 2.09774 seconds.
+[10/28/2026-10:27:46] [TRT] [I]   Calibrated batch 62 in 2.09081 seconds.
+[10/28/2026-10:27:48] [TRT] [I]   Calibrated batch 63 in 2.09795 seconds.
+[10/28/2026-10:27:50] [TRT] [I]   Calibrated batch 64 in 2.07451 seconds.
+[10/28/2026-10:27:53] [TRT] [I]   Calibrated batch 65 in 2.06912 seconds.
+[10/28/2026-10:27:55] [TRT] [I]   Calibrated batch 66 in 2.10685 seconds.
+[10/28/2026-10:27:57] [TRT] [I]   Calibrated batch 67 in 2.06765 seconds.
+[10/28/2026-10:27:59] [TRT] [I]   Calibrated batch 68 in 2.07975 seconds.
+[10/28/2026-10:28:01] [TRT] [I]   Calibrated batch 69 in 2.07259 seconds.
+[10/28/2026-10:28:03] [TRT] [I]   Calibrated batch 70 in 2.0699 seconds.
+[10/28/2026-10:28:05] [TRT] [I]   Calibrated batch 71 in 2.09859 seconds.
+[10/28/2026-10:28:07] [TRT] [I]   Calibrated batch 72 in 2.10377 seconds.
+[10/28/2026-10:28:09] [TRT] [I]   Calibrated batch 73 in 2.08789 seconds.
+[10/28/2026-10:28:12] [TRT] [I]   Calibrated batch 74 in 2.08733 seconds.
+[10/28/2026-10:28:14] [TRT] [I]   Calibrated batch 75 in 2.10032 seconds.
+[10/28/2026-10:28:16] [TRT] [I]   Calibrated batch 76 in 2.08136 seconds.
+[10/28/2026-10:28:18] [TRT] [I]   Calibrated batch 77 in 2.08945 seconds.
+[10/28/2026-10:28:20] [TRT] [I]   Calibrated batch 78 in 2.06318 seconds.
+[10/28/2026-10:28:22] [TRT] [I]   Calibrated batch 79 in 2.06913 seconds.
+[10/28/2026-10:28:24] [TRT] [I]   Calibrated batch 80 in 2.09692 seconds.
+[10/28/2026-10:28:26] [TRT] [I]   Calibrated batch 81 in 2.0672 seconds.
+[10/28/2026-10:28:28] [TRT] [I]   Calibrated batch 82 in 2.09633 seconds.
+[10/28/2026-10:28:30] [TRT] [I]   Calibrated batch 83 in 2.0951 seconds.
+[10/28/2026-10:28:33] [TRT] [I]   Calibrated batch 84 in 2.10851 seconds.
+[10/28/2026-10:28:35] [TRT] [I]   Calibrated batch 85 in 2.09912 seconds.
+[10/28/2026-10:28:37] [TRT] [I]   Calibrated batch 86 in 2.10142 seconds.
+[10/28/2026-10:28:39] [TRT] [I]   Calibrated batch 87 in 2.09849 seconds.
+[10/28/2026-10:28:41] [TRT] [I]   Calibrated batch 88 in 2.09137 seconds.
+[10/28/2026-10:28:43] [TRT] [I]   Calibrated batch 89 in 2.09811 seconds.
+[10/28/2026-10:28:45] [TRT] [I]   Calibrated batch 90 in 2.10457 seconds.
+[10/28/2026-10:28:47] [TRT] [I]   Calibrated batch 91 in 2.06829 seconds.
+[10/28/2026-10:28:49] [TRT] [I]   Calibrated batch 92 in 2.09579 seconds.
+[10/28/2026-10:28:52] [TRT] [I]   Calibrated batch 93 in 2.10366 seconds.
+[10/28/2026-10:28:54] [TRT] [I]   Calibrated batch 94 in 2.10341 seconds.
+[10/28/2026-10:28:56] [TRT] [I]   Calibrated batch 95 in 2.09487 seconds.
+[10/28/2026-10:28:58] [TRT] [I]   Calibrated batch 96 in 2.09761 seconds.
+[10/28/2026-10:29:00] [TRT] [I]   Calibrated batch 97 in 2.06759 seconds.
+[10/28/2026-10:29:02] [TRT] [I]   Calibrated batch 98 in 2.07791 seconds.
+[10/28/2026-10:29:04] [TRT] [I]   Calibrated batch 99 in 2.10629 seconds.
+[10/28/2026-10:29:06] [TRT] [I]   Calibrated batch 100 in 2.10693 seconds.
+[10/28/2026-10:29:08] [TRT] [I]   Calibrated batch 101 in 2.11332 seconds.
+[10/28/2026-10:29:11] [TRT] [I]   Calibrated batch 102 in 2.10642 seconds.
+[10/28/2026-10:29:13] [TRT] [I]   Calibrated batch 103 in 2.10195 seconds.
+[10/28/2026-10:29:15] [TRT] [I]   Calibrated batch 104 in 2.08701 seconds.
+[10/28/2026-10:29:17] [TRT] [I]   Calibrated batch 105 in 2.11322 seconds.
+[10/28/2026-10:29:19] [TRT] [I]   Calibrated batch 106 in 2.11709 seconds.
+[10/28/2026-10:29:21] [TRT] [I]   Calibrated batch 107 in 2.11075 seconds.
+[10/28/2026-10:29:23] [TRT] [I]   Calibrated batch 108 in 2.07841 seconds.
+[10/28/2026-10:29:25] [TRT] [I]   Calibrated batch 109 in 2.10436 seconds.
+[10/28/2026-10:29:28] [TRT] [I]   Calibrated batch 110 in 2.08224 seconds.
+[10/28/2026-10:29:30] [TRT] [I]   Calibrated batch 111 in 2.10452 seconds.
+[10/28/2026-10:29:32] [TRT] [I]   Calibrated batch 112 in 2.10056 seconds.
+[10/28/2026-10:29:34] [TRT] [I]   Calibrated batch 113 in 2.08563 seconds.
+[10/28/2026-10:29:36] [TRT] [I]   Calibrated batch 114 in 2.10796 seconds.
+[10/28/2026-10:29:38] [TRT] [I]   Calibrated batch 115 in 2.09965 seconds.
+[10/28/2026-10:29:40] [TRT] [I]   Calibrated batch 116 in 2.08752 seconds.
+[10/28/2026-10:29:42] [TRT] [I]   Calibrated batch 117 in 2.09149 seconds.
+[10/28/2026-10:29:44] [TRT] [I]   Calibrated batch 118 in 2.08041 seconds.
+[10/28/2026-10:29:47] [TRT] [I]   Calibrated batch 119 in 2.10977 seconds.
+[10/28/2026-10:29:49] [TRT] [I]   Calibrated batch 120 in 2.10743 seconds.
+[10/28/2026-10:29:51] [TRT] [I]   Calibrated batch 121 in 2.09008 seconds.
+[10/28/2026-10:29:53] [TRT] [I]   Calibrated batch 122 in 2.10637 seconds.
+[10/28/2026-10:29:55] [TRT] [I]   Calibrated batch 123 in 2.08701 seconds.
+[10/28/2026-10:29:57] [TRT] [I]   Calibrated batch 124 in 2.10667 seconds.
+[10/28/2026-10:29:59] [TRT] [I]   Calibrated batch 125 in 2.0858 seconds.
+[10/28/2026-10:30:01] [TRT] [I]   Calibrated batch 126 in 2.10585 seconds.
+[10/28/2026-10:30:04] [TRT] [I]   Calibrated batch 127 in 2.11298 seconds.
+[10/28/2026-10:30:06] [TRT] [I]   Calibrated batch 128 in 2.10193 seconds.
+[10/28/2026-10:30:08] [TRT] [I]   Calibrated batch 129 in 2.08847 seconds.
+[10/28/2026-10:30:10] [TRT] [I]   Calibrated batch 130 in 2.11032 seconds.
+[10/28/2026-10:30:12] [TRT] [I]   Calibrated batch 131 in 2.08874 seconds.
+[10/28/2026-10:30:14] [TRT] [I]   Calibrated batch 132 in 2.10864 seconds.
+[10/28/2026-10:30:16] [TRT] [I]   Calibrated batch 133 in 2.08807 seconds.
+[10/28/2026-10:30:18] [TRT] [I]   Calibrated batch 134 in 2.09191 seconds.
+[10/28/2026-10:30:21] [TRT] [I]   Calibrated batch 135 in 2.08472 seconds.
+[10/28/2026-10:30:23] [TRT] [I]   Calibrated batch 136 in 2.11585 seconds.
+[10/28/2026-10:30:25] [TRT] [I]   Calibrated batch 137 in 2.09321 seconds.
+[10/28/2026-10:30:27] [TRT] [I]   Calibrated batch 138 in 2.10873 seconds.
+[10/28/2026-10:30:29] [TRT] [I]   Calibrated batch 139 in 2.10506 seconds.
+[10/28/2026-10:30:31] [TRT] [I]   Calibrated batch 140 in 2.09442 seconds.
+[10/28/2026-10:30:33] [TRT] [I]   Calibrated batch 141 in 2.10677 seconds.
+[10/28/2026-10:30:35] [TRT] [I]   Calibrated batch 142 in 2.1132 seconds.
+[10/28/2026-10:30:38] [TRT] [I]   Calibrated batch 143 in 2.08605 seconds.
+[10/28/2026-10:30:40] [TRT] [I]   Calibrated batch 144 in 2.09338 seconds.
+[10/28/2026-10:30:42] [TRT] [I]   Calibrated batch 145 in 2.10042 seconds.
+[10/28/2026-10:30:44] [TRT] [I]   Calibrated batch 146 in 2.11498 seconds.
+[10/28/2026-10:30:46] [TRT] [I]   Calibrated batch 147 in 2.11497 seconds.
+[10/28/2026-10:30:48] [TRT] [I]   Calibrated batch 148 in 2.10258 seconds.
+[10/28/2026-10:30:50] [TRT] [I]   Calibrated batch 149 in 2.11366 seconds.
+[10/28/2026-10:30:52] [TRT] [I]   Calibrated batch 150 in 2.11214 seconds.
+[10/28/2026-10:30:55] [TRT] [I]   Calibrated batch 151 in 2.11311 seconds.
+[10/28/2026-10:30:57] [TRT] [I]   Calibrated batch 152 in 2.08736 seconds.
+[10/28/2026-10:30:59] [TRT] [I]   Calibrated batch 153 in 2.11075 seconds.
+[10/28/2026-10:31:01] [TRT] [I]   Calibrated batch 154 in 2.11375 seconds.
+[10/28/2026-10:31:03] [TRT] [I]   Calibrated batch 155 in 2.10238 seconds.
+[10/28/2026-10:31:05] [TRT] [I]   Calibrated batch 156 in 2.10089 seconds.
+[10/28/2026-10:31:07] [TRT] [I]   Calibrated batch 157 in 2.10359 seconds.
+[10/28/2026-10:31:09] [TRT] [I]   Calibrated batch 158 in 2.10544 seconds.
+[10/28/2026-10:31:12] [TRT] [I]   Calibrated batch 159 in 2.11256 seconds.
+[10/28/2026-10:31:14] [TRT] [I]   Calibrated batch 160 in 2.0973 seconds.
+[10/28/2026-10:31:16] [TRT] [I]   Calibrated batch 161 in 2.11358 seconds.
+[10/28/2026-10:31:18] [TRT] [I]   Calibrated batch 162 in 2.11186 seconds.
+[10/28/2026-10:31:20] [TRT] [I]   Calibrated batch 163 in 2.10034 seconds.
+[10/28/2026-10:31:22] [TRT] [I]   Calibrated batch 164 in 2.10531 seconds.
+[10/28/2026-10:31:24] [TRT] [I]   Calibrated batch 165 in 2.10749 seconds.
+[10/28/2026-10:31:26] [TRT] [I]   Calibrated batch 166 in 2.07182 seconds.
+[10/28/2026-10:31:28] [TRT] [I]   Calibrated batch 167 in 2.10374 seconds.
+[10/28/2026-10:31:31] [TRT] [I]   Calibrated batch 168 in 2.10355 seconds.
+[10/28/2026-10:31:33] [TRT] [I]   Calibrated batch 169 in 2.10231 seconds.
+[10/28/2026-10:31:35] [TRT] [I]   Calibrated batch 170 in 2.08203 seconds.
+[10/28/2026-10:31:37] [TRT] [I]   Calibrated batch 171 in 2.09085 seconds.
+[10/28/2026-10:31:39] [TRT] [I]   Calibrated batch 172 in 2.10396 seconds.
+[10/28/2026-10:31:41] [TRT] [I]   Calibrated batch 173 in 2.10781 seconds.
+[10/28/2026-10:31:43] [TRT] [I]   Calibrated batch 174 in 2.10522 seconds.
+[10/28/2026-10:31:45] [TRT] [I]   Calibrated batch 175 in 2.08366 seconds.
+[10/28/2026-10:31:48] [TRT] [I]   Calibrated batch 176 in 2.10063 seconds.
+[10/28/2026-10:31:50] [TRT] [I]   Calibrated batch 177 in 2.10865 seconds.
+[10/28/2026-10:31:52] [TRT] [I]   Calibrated batch 178 in 2.10572 seconds.
+[10/28/2026-10:31:54] [TRT] [I]   Calibrated batch 179 in 2.11007 seconds.
+[10/28/2026-10:31:56] [TRT] [I]   Calibrated batch 180 in 2.1078 seconds.
+[10/28/2026-10:31:58] [TRT] [I]   Calibrated batch 181 in 2.10857 seconds.
+[10/28/2026-10:32:00] [TRT] [I]   Calibrated batch 182 in 2.10368 seconds.
+[10/28/2026-10:32:02] [TRT] [I]   Calibrated batch 183 in 2.10946 seconds.
+[10/28/2026-10:32:05] [TRT] [I]   Calibrated batch 184 in 2.10373 seconds.
+[10/28/2026-10:32:07] [TRT] [I]   Calibrated batch 185 in 2.08956 seconds.
+[10/28/2026-10:32:09] [TRT] [I]   Calibrated batch 186 in 2.11049 seconds.
+[10/28/2026-10:32:11] [TRT] [I]   Calibrated batch 187 in 2.1071 seconds.
+[10/28/2026-10:32:13] [TRT] [I]   Calibrated batch 188 in 2.10851 seconds.
+[10/28/2026-10:32:15] [TRT] [I]   Calibrated batch 189 in 2.11145 seconds.
+[10/28/2026-10:32:17] [TRT] [I]   Calibrated batch 190 in 2.08246 seconds.
+[10/28/2026-10:32:19] [TRT] [I]   Calibrated batch 191 in 2.09516 seconds.
+[10/28/2026-10:32:21] [TRT] [I]   Calibrated batch 192 in 2.09855 seconds.
+[10/28/2026-10:32:24] [TRT] [I]   Calibrated batch 193 in 2.09658 seconds.
+[10/28/2026-10:32:26] [TRT] [I]   Calibrated batch 194 in 2.09977 seconds.
+[10/28/2026-10:32:28] [TRT] [I]   Calibrated batch 195 in 2.10777 seconds.
+[10/28/2026-10:32:30] [TRT] [I]   Calibrated batch 196 in 2.09799 seconds.
+[10/28/2026-10:32:32] [TRT] [I]   Calibrated batch 197 in 2.0963 seconds.
+[10/28/2026-10:32:34] [TRT] [I]   Calibrated batch 198 in 2.1046 seconds.
+[10/28/2026-10:32:36] [TRT] [I]   Calibrated batch 199 in 2.09184 seconds.
+[10/28/2026-10:32:38] [TRT] [I]   Calibrated batch 200 in 2.11401 seconds.
+[10/28/2026-10:32:40] [TRT] [I]   Calibrated batch 201 in 2.0751 seconds.
+[10/28/2026-10:32:43] [TRT] [I]   Calibrated batch 202 in 2.10134 seconds.
+[10/28/2026-10:32:45] [TRT] [I]   Calibrated batch 203 in 2.11162 seconds.
+[10/28/2026-10:32:47] [TRT] [I]   Calibrated batch 204 in 2.12197 seconds.
+[10/28/2026-10:32:49] [TRT] [I]   Calibrated batch 205 in 2.07695 seconds.
+[10/28/2026-10:32:51] [TRT] [I]   Calibrated batch 206 in 2.09291 seconds.
+[10/28/2026-10:32:53] [TRT] [I]   Calibrated batch 207 in 2.08455 seconds.
+[10/28/2026-10:32:55] [TRT] [I]   Calibrated batch 208 in 2.08352 seconds.
+[10/28/2026-10:32:57] [TRT] [I]   Calibrated batch 209 in 2.09992 seconds.
+[10/28/2026-10:33:00] [TRT] [I]   Calibrated batch 210 in 2.07126 seconds.
+[10/28/2026-10:33:02] [TRT] [I]   Calibrated batch 211 in 2.09437 seconds.
+[10/28/2026-10:33:04] [TRT] [I]   Calibrated batch 212 in 2.10146 seconds.
+[10/28/2026-10:33:06] [TRT] [I]   Calibrated batch 213 in 2.10028 seconds.
+[10/28/2026-10:33:08] [TRT] [I]   Calibrated batch 214 in 2.16538 seconds.
+[10/28/2026-10:33:10] [TRT] [I]   Calibrated batch 215 in 2.10621 seconds.
+[10/28/2026-10:33:12] [TRT] [I]   Calibrated batch 216 in 2.10206 seconds.
+[10/28/2026-10:33:14] [TRT] [I]   Calibrated batch 217 in 2.10976 seconds.
+[10/28/2026-10:33:17] [TRT] [I]   Calibrated batch 218 in 2.09414 seconds.
+[10/28/2026-10:33:19] [TRT] [I]   Calibrated batch 219 in 2.11035 seconds.
+[10/28/2026-10:33:21] [TRT] [I]   Calibrated batch 220 in 2.10933 seconds.
+[10/28/2026-10:33:23] [TRT] [I]   Calibrated batch 221 in 2.07958 seconds.
+[10/28/2026-10:33:25] [TRT] [I]   Calibrated batch 222 in 2.10721 seconds.
+[10/28/2026-10:33:27] [TRT] [I]   Calibrated batch 223 in 2.10045 seconds.
+[10/28/2026-10:33:29] [TRT] [I]   Calibrated batch 224 in 2.08749 seconds.
+[10/28/2026-10:33:31] [TRT] [I]   Calibrated batch 225 in 2.10786 seconds.
+[10/28/2026-10:33:33] [TRT] [I]   Calibrated batch 226 in 2.09934 seconds.
+[10/28/2026-10:33:36] [TRT] [I]   Calibrated batch 227 in 2.11001 seconds.
+[10/28/2026-10:33:38] [TRT] [I]   Calibrated batch 228 in 2.07612 seconds.
+[10/28/2026-10:33:40] [TRT] [I]   Calibrated batch 229 in 2.09306 seconds.
+[10/28/2026-10:33:42] [TRT] [I]   Calibrated batch 230 in 2.10745 seconds.
+[10/28/2026-10:33:44] [TRT] [I]   Calibrated batch 231 in 2.09815 seconds.
+[10/28/2026-10:33:46] [TRT] [I]   Calibrated batch 232 in 2.11069 seconds.
+[10/28/2026-10:33:48] [TRT] [I]   Calibrated batch 233 in 2.10282 seconds.
+[10/28/2026-10:33:50] [TRT] [I]   Calibrated batch 234 in 2.10283 seconds.
+[10/28/2026-10:33:53] [TRT] [I]   Calibrated batch 235 in 2.10943 seconds.
+[10/28/2026-10:33:55] [TRT] [I]   Calibrated batch 236 in 2.11397 seconds.
+[10/28/2026-10:33:57] [TRT] [I]   Calibrated batch 237 in 2.10094 seconds.
+[10/28/2026-10:33:59] [TRT] [I]   Calibrated batch 238 in 2.0815 seconds.
+[10/28/2026-10:34:01] [TRT] [I]   Calibrated batch 239 in 2.11087 seconds.
+[10/28/2026-10:34:03] [TRT] [I]   Calibrated batch 240 in 2.11176 seconds.
+[10/28/2026-10:34:05] [TRT] [I]   Calibrated batch 241 in 2.0984 seconds.
+[10/28/2026-10:34:07] [TRT] [I]   Calibrated batch 242 in 2.09226 seconds.
+[10/28/2026-10:34:09] [TRT] [I]   Calibrated batch 243 in 2.09931 seconds.
+[10/28/2026-10:34:12] [TRT] [I]   Calibrated batch 244 in 2.09435 seconds.
+[10/28/2026-10:34:14] [TRT] [I]   Calibrated batch 245 in 2.10401 seconds.
+[10/28/2026-10:34:16] [TRT] [I]   Calibrated batch 246 in 2.09499 seconds.
+[10/28/2026-10:34:18] [TRT] [I]   Calibrated batch 247 in 2.11317 seconds.
+[10/28/2026-10:34:20] [TRT] [I]   Calibrated batch 248 in 2.11229 seconds.
+[10/28/2026-10:34:22] [TRT] [I]   Calibrated batch 249 in 2.10781 seconds.
+[10/28/2026-10:34:24] [TRT] [I]   Calibrated batch 250 in 2.07608 seconds.
+[10/28/2026-10:34:26] [TRT] [I]   Calibrated batch 251 in 2.09768 seconds.
+[10/28/2026-10:34:29] [TRT] [I]   Calibrated batch 252 in 2.10785 seconds.
+[10/28/2026-10:34:31] [TRT] [I]   Calibrated batch 253 in 2.10176 seconds.
+[10/28/2026-10:34:33] [TRT] [I]   Calibrated batch 254 in 2.07499 seconds.
+[10/28/2026-10:34:35] [TRT] [I]   Calibrated batch 255 in 2.20565 seconds.
+[10/28/2026-10:34:37] [TRT] [I]   Calibrated batch 256 in 2.104 seconds.
+[10/28/2026-10:34:39] [TRT] [I]   Calibrated batch 257 in 2.08608 seconds.
+[10/28/2026-10:34:41] [TRT] [I]   Calibrated batch 258 in 2.11761 seconds.
+[10/28/2026-10:34:43] [TRT] [I]   Calibrated batch 259 in 2.08756 seconds.
+[10/28/2026-10:34:46] [TRT] [I]   Calibrated batch 260 in 2.08637 seconds.
+[10/28/2026-10:34:48] [TRT] [I]   Calibrated batch 261 in 2.1216 seconds.
+[10/28/2026-10:34:50] [TRT] [I]   Calibrated batch 262 in 2.10705 seconds.
+[10/28/2026-10:34:52] [TRT] [I]   Calibrated batch 263 in 2.09977 seconds.
+[10/28/2026-10:34:54] [TRT] [I]   Calibrated batch 264 in 2.1223 seconds.
+[10/28/2026-10:34:56] [TRT] [I]   Calibrated batch 265 in 2.08762 seconds.
+[10/28/2026-10:34:58] [TRT] [I]   Calibrated batch 266 in 2.10342 seconds.
+[10/28/2026-10:35:00] [TRT] [I]   Calibrated batch 267 in 2.11117 seconds.
+[10/28/2026-10:35:03] [TRT] [I]   Calibrated batch 268 in 2.11665 seconds.
+[10/28/2026-10:35:05] [TRT] [I]   Calibrated batch 269 in 2.09087 seconds.
+[10/28/2026-10:35:07] [TRT] [I]   Calibrated batch 270 in 2.11388 seconds.
+[10/28/2026-10:35:09] [TRT] [I]   Calibrated batch 271 in 2.10845 seconds.
+[10/28/2026-10:35:11] [TRT] [I]   Calibrated batch 272 in 2.11686 seconds.
+[10/28/2026-10:35:13] [TRT] [I]   Calibrated batch 273 in 2.12378 seconds.
+[10/28/2026-10:35:15] [TRT] [I]   Calibrated batch 274 in 2.10392 seconds.
+[10/28/2026-10:35:17] [TRT] [I]   Calibrated batch 275 in 2.11955 seconds.
+[10/28/2026-10:35:20] [TRT] [I]   Calibrated batch 276 in 2.12505 seconds.
+[10/28/2026-10:35:22] [TRT] [I]   Calibrated batch 277 in 2.09668 seconds.
+[10/28/2026-10:35:24] [TRT] [I]   Calibrated batch 278 in 2.10103 seconds.
+[10/28/2026-10:35:26] [TRT] [I]   Calibrated batch 279 in 2.10935 seconds.
+[10/28/2026-10:35:28] [TRT] [I]   Calibrated batch 280 in 2.08387 seconds.
+[10/28/2026-10:35:30] [TRT] [I]   Calibrated batch 281 in 2.11118 seconds.
+[10/28/2026-10:35:32] [TRT] [I]   Calibrated batch 282 in 2.1194 seconds.
+[10/28/2026-10:35:34] [TRT] [I]   Calibrated batch 283 in 2.10313 seconds.
+[10/28/2026-10:35:37] [TRT] [I]   Calibrated batch 284 in 2.0694 seconds.
+[10/28/2026-10:35:39] [TRT] [I]   Calibrated batch 285 in 2.09242 seconds.
+[10/28/2026-10:35:41] [TRT] [I]   Calibrated batch 286 in 2.10503 seconds.
+[10/28/2026-10:35:43] [TRT] [I]   Calibrated batch 287 in 2.12039 seconds.
+[10/28/2026-10:35:45] [TRT] [I]   Calibrated batch 288 in 2.10658 seconds.
+[10/28/2026-10:35:47] [TRT] [I]   Calibrated batch 289 in 2.09685 seconds.
+[10/28/2026-10:35:49] [TRT] [I]   Calibrated batch 290 in 2.10572 seconds.
+[10/28/2026-10:35:51] [TRT] [I]   Calibrated batch 291 in 2.10202 seconds.
+[10/28/2026-10:35:54] [TRT] [I]   Calibrated batch 292 in 2.07835 seconds.
+[10/28/2026-10:35:56] [TRT] [I]   Calibrated batch 293 in 2.09945 seconds.
+[10/28/2026-10:35:58] [TRT] [I]   Calibrated batch 294 in 2.10876 seconds.
+[10/28/2026-10:36:00] [TRT] [I]   Calibrated batch 295 in 2.10845 seconds.
+[10/28/2026-10:36:02] [TRT] [I]   Calibrated batch 296 in 2.10318 seconds.
+[10/28/2026-10:36:04] [TRT] [I]   Calibrated batch 297 in 2.10583 seconds.
+[10/28/2026-10:36:06] [TRT] [I]   Calibrated batch 298 in 2.10635 seconds.
+[10/28/2026-10:36:08] [TRT] [I]   Calibrated batch 299 in 2.1085 seconds.
+[10/28/2026-10:36:08] [TRT] [I]   Post Processing Calibration data in 0.0192941 seconds.
+[10/28/2026-10:36:08] [TRT] [I] Calibration completed in 656.577 seconds.
+[10/28/2026-10:36:09] [TRT] [I] Writing Calibration Cache for calibrator: TRT-100700-MinMaxCalibration
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.11.norm1.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.11.norm1.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_19_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_21_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_castHelper_1752_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.11.norm2.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.11.norm2.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_39_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_41_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Unsqueeze_7_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Cast_5_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.enc_output.1.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.enc_output.1.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_72_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_74_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.3.norm3.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1213_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1708_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.5.norm2.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1336_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.3.norm2.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.3.norm1.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1382_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1384_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.11/Constant_3_output_0_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.2.norm3.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1742_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1370_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.4.norm1.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1503_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1505_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.4.norm1.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Mod_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor (Unnamed Layer* 2307) [ElementWise]_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor (Unnamed Layer* 2306) [ElementWise]_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.4.norm2.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.4.norm2.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1537_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1539_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1740_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.11/Constant_output_0_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.4.norm3.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.4.norm3.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1551_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1553_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.3.norm3.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1215_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.5.norm2.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Div_2_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Sub_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1368_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1334_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.3.norm2.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.3.norm1.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.2.norm3.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1706_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/TopK_output (1), expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/TopK_output_1, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Flatten_1_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/TopK_1_output (1), expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/TopK_1_output_1, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Constant_27_output_0_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_702_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Cast_3_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/GatherElements_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Cast_1_output_0_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_704_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Mul_1_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Add_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Add_1_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor onnx::Gather_1121_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_castHelper_706_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_castHelper_707_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1720_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/TopK_2_output (1), expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1722_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.5.norm3.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.5.norm3.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Sub_1_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.0.norm1.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.0.norm1.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_827_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_829_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Unsqueeze_5_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.0.norm2.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.0.norm2.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_861_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_863_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Where_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.0.norm3.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.0.norm3.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_875_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_877_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/And_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.1.norm1.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.1.norm1.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_996_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_998_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Not_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.1.norm2.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.1.norm2.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1030_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1032_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Equal_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.1.norm3.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.1.norm3.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1044_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1046_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Less_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.5.norm1.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1674_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1672_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1738_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.5.norm1.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1749_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Xor_output_0, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.2.norm1.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.2.norm1.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1165_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1167_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1747_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor /model.28/Constant_46_output_0_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.2.norm2.weight_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor model.28.decoder.layers.2.norm2.bias_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1199_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:09] [TRT] [W] Missing scale and zero-point for tensor ONNXTRT_Broadcast_1201_output, expect fall back to non-int8 implementation for any layer consuming or producing given tensor
+[10/28/2026-10:36:10] [TRT] [I] Local timing cache in use. Profiling results in this builder pass will not be stored.
+[10/28/2026-10:46:48] [TRT] [I] Compiler backend is used during engine build.
+[10/28/2026-10:58:26] [TRT] [I] Detected 1 inputs and 1 output network tensors.
+[10/28/2026-10:58:59] [TRT] [I] Total Host Persistent Memory: 546544 bytes
+[10/28/2026-10:58:59] [TRT] [I] Total Device Persistent Memory: 154112 bytes
+[10/28/2026-10:58:59] [TRT] [I] Max Scratch Memory: 42803200 bytes
+[10/28/2026-10:58:59] [TRT] [I] [BlockAssignment] Started assigning block shifts. This will take 122 steps to complete.
+[10/28/2026-10:58:59] [TRT] [I] [BlockAssignment] Algorithm ShiftNTopDown took 10.9832ms to assign 9 blocks to 122 nodes requiring 57876992 bytes.
+[10/28/2026-10:58:59] [TRT] [I] Total Activation Memory: 57876992 bytes
+[10/28/2026-10:58:59] [TRT] [I] Total Weights Memory: 40794404 bytes
+[10/28/2026-10:58:59] [TRT] [I] Compiler backend is used during engine execution.
+[10/28/2026-10:58:59] [TRT] [I] Engine generation completed in 1369.97 seconds.
+[10/28/2026-10:59:00] [TRT] [I] [MemUsageStats] Peak memory usage of TRT CPU/GPU memory allocators: CPU 39 MiB, GPU 384 MiB
+[34m[1mTensorRT:[0m export success ✅ 2064.3s, saved as 'models/rtdetr-l.engine' (42.3 MB)
+
+Export complete (2067.4s)
+Results saved to [1m/workspace/landing-project/models/rtdetr-l.engine[0m
+Predict:         yolo predict task=detect model=models/rtdetr-l.engine imgsz=640 
+Validate:        yolo val task=detect model=models/rtdetr-l.engine imgsz=640  
+Visualize:       https://netron.app
+Loading /workspace/landing-project/engines/rtdetr-l_int8.engine for TensorRT inference...
+[10/28/2026-10:59:02] [TRT] [I] Loaded engine size: 42 MiB
+[10/28/2026-10:59:02] [TRT] [I] [MS] Running engine with multi stream info
+[10/28/2026-10:59:02] [TRT] [I] [MS] Number of aux streams is 1
+[10/28/2026-10:59:02] [TRT] [I] [MS] Number of total worker streams is 2
+[10/28/2026-10:59:02] [TRT] [I] [MS] The main stream provided by execute/enqueue calls is the first worker stream
+[10/28/2026-10:59:02] [TRT] [I] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +55, now: CPU 0, GPU 94 (MiB)
+OK: rtdetr-l_int8.engine, inferentie 26.3 ms (38 FPS, enkel het model)
+
+Samenvatting: /workspace/landing-project/results/engines/summary.csv

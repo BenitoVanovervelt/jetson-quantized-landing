@@ -24,7 +24,7 @@ Thumbs.db
 datasets/
 weights/
 # Engines op de Jetson
-engines/
+/engines/
 # Lock-bestand van een lopende live run
 results/live/live_all.lock
 
@@ -40,3 +40,6 @@ presentation/video/*.mp4
 # Indienpakket school (gegenereerd) en persoonlijke leidraad voor de verdediging
 submission/
 docs/Leidraad_verdediging.docx
+
+# Literatuurstudie (schoolopdracht, ingediend via de leeromgeving): niet publiek
+docs/literatuurstudie/
